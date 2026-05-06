@@ -355,6 +355,9 @@ export default function App() {
                <img src="/Trust/img/@ map screen.png" className="absolute inset-0 w-full h-full object-cover" alt="Map" />
             </div>
           </div>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer className="w-full py-[50px] md:py-16 bg-[#252b42] px-[20px] md:px-10">
         <div className="max-w-6xl mx-auto flex flex-col justify-center items-center gap-[40px] text-center">
@@ -380,8 +383,6 @@ export default function App() {
               </Button>
             </div>
           </div>
-        </div>
-      </footer>iv>
         </div>
       </footer>
     </div>
