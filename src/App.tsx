@@ -63,8 +63,8 @@ export default function App() {
             sueños y crecimiento para empresas que no conocen fronteras.
           </p>
           <div className="mt-8">
-            <Button className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-12 py-8 text-[20px]">
-              Cotizar Ahora.
+            <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-12 py-8 text-[20px]">
+              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Cotizar Ahora.</a>
             </Button>
           </div>
         </div>
@@ -125,8 +125,8 @@ export default function App() {
           <p className="text-xl md:text-2xl text-[#374754] font-light">
             La solución perfecta para quienes buscan enviar carga consolidada o servicio Door-to-Door sin necesidad de completar un contenedor.
           </p>
-          <Button className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-10 py-6 text-xl self-start">
-            Ver Servicios
+          <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-10 py-6 text-xl self-start">
+            <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Ver Servicios</a>
           </Button>
         </div>
         
@@ -184,8 +184,8 @@ export default function App() {
         </div>
         
         <div className="mt-16">
-          <Button className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-10 py-6 text-xl">
-            Contactar
+          <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-10 py-6 text-xl">
+            <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Contactar</a>
           </Button>
         </div>
       </section>
@@ -241,8 +241,8 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <Button className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg">
-              Consulta Ahora
+            <Button asChild className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg">
+              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Consulta Ahora</a>
             </Button>
           </div>
 
@@ -263,8 +263,8 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <Button className="w-full mt-6 bg-white hover:bg-gray-100 text-[#2091f9] rounded-full py-6 text-lg">
-              Consulta Ahora
+            <Button asChild className="w-full mt-6 bg-white hover:bg-gray-100 text-[#2091f9] rounded-full py-6 text-lg">
+              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Consulta Ahora</a>
             </Button>
           </div>
 
@@ -285,8 +285,8 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <Button className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg">
-              Consulta Ahora
+            <Button asChild className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg">
+              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Consulta Ahora</a>
             </Button>
           </div>
         </div>
