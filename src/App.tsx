@@ -21,7 +21,7 @@ export default function App() {
         <div 
           className="absolute inset-0 z-0"
           style={{ 
-            backgroundImage: 'url("/img/Rectangle 9.png")', 
+            backgroundImage: 'url("/Trust/img/Rectangle 9.png")', 
             backgroundSize: 'cover', 
             backgroundPosition: 'center top',
             backgroundRepeat: 'no-repeat'
@@ -35,19 +35,19 @@ export default function App() {
           
           {/* Centered Logo */}
           <div className="flex-1 flex justify-center">
-            <img src="/img/Rectangle 4.png" alt="Trust Container" className="h-[58px] brightness-0 invert" />
+            <img src="/Trust/img/Rectangle 4.png" alt="Trust Container" className="h-[58px] brightness-0 invert" />
           </div>
 
           {/* Right Social Icons */}
           <div className="flex-1 flex justify-end items-center gap-6">
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
-              <img src="/img/ant-design_twitter-outlined.svg" className="w-8 h-8 brightness-0 invert" alt="Twitter" />
+              <img src="/Trust/img/ant-design_twitter-outlined.svg" className="w-8 h-8 brightness-0 invert" alt="Twitter" />
             </Button>
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
-              <img src="/img/ant-design_facebook-filled.svg" className="w-8 h-8 brightness-0 invert" alt="Facebook" />
+              <img src="/Trust/img/ant-design_facebook-filled.svg" className="w-8 h-8 brightness-0 invert" alt="Facebook" />
             </Button>
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
-              <img src="/img/ant-design_linkedin-filled.svg" className="w-8 h-8 brightness-0 invert" alt="LinkedIn" />
+              <img src="/Trust/img/ant-design_linkedin-filled.svg" className="w-8 h-8 brightness-0 invert" alt="LinkedIn" />
             </Button>
           </div>
         </header>
@@ -80,7 +80,7 @@ export default function App() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto mb-20">
           <div className="flex flex-col items-center text-center gap-4">
             <div className="bg-blue-50 p-6 rounded-full text-[#2091f9] mb-2 flex items-center justify-center w-24 h-24">
-              <img src="/img/mdi_drawing.svg" className="w-12 h-12" alt="" />
+              <img src="/Trust/img/mdi_drawing.svg" className="w-12 h-12" alt="" />
             </div>
             <h3 className="text-2xl font-bold text-[#252b42]">Alcance Global</h3>
             <p className="text-lg text-[#374754] max-w-xs">
@@ -90,7 +90,7 @@ export default function App() {
           
           <div className="flex flex-col items-center text-center gap-4">
             <div className="bg-blue-50 p-6 rounded-full text-[#2091f9] mb-2 flex items-center justify-center w-24 h-24">
-              <img src="/img/mdi_draw.svg" className="w-12 h-12" alt="" />
+              <img src="/Trust/img/mdi_draw.svg" className="w-12 h-12" alt="" />
             </div>
             <h3 className="text-2xl font-bold text-[#252b42]">Seguridad Total</h3>
             <p className="text-lg text-[#374754] max-w-xs">
@@ -100,7 +100,7 @@ export default function App() {
           
           <div className="flex flex-col items-center text-center gap-4">
             <div className="bg-blue-50 p-6 rounded-full text-[#2091f9] mb-2 flex items-center justify-center w-24 h-24">
-              <img src="/img/mdi_brush.svg" className="w-12 h-12" alt="" />
+              <img src="/Trust/img/mdi_brush.svg" className="w-12 h-12" alt="" />
             </div>
             <h3 className="text-2xl font-bold text-[#252b42]">Experiencia Real</h3>
             <p className="text-lg text-[#374754] max-w-xs">
@@ -110,9 +110,9 @@ export default function App() {
         </div>
         
         <div className="relative w-full max-w-5xl aspect-[16/9] bg-gray-200 rounded-[40px] flex items-center justify-center shadow-2xl overflow-hidden group cursor-pointer">
-          <img src="/img/screen.png" className="absolute inset-0 w-full h-full object-cover" alt="Video Screen" />
+          <img src="/Trust/img/screen.png" className="absolute inset-0 w-full h-full object-cover" alt="Video Screen" />
           <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors z-10" />
-          <img src="/img/el_play.svg" className="w-24 h-24 z-20 opacity-90 group-hover:scale-110 transition-transform" alt="Play" />
+          <img src="/Trust/img/el_play.svg" className="w-24 h-24 z-20 opacity-90 group-hover:scale-110 transition-transform" alt="Play" />
         </div>
       </section>
 
@@ -132,7 +132,7 @@ export default function App() {
         
         <div className="relative w-full max-w-2xl bg-white p-4 rounded-xl shadow-xl">
           <div className="aspect-[16/10] bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center relative">
-             <img src="/img/SCREEN MASK.png" className="absolute inset-0 w-full h-full object-cover" alt="Platform Preview" />
+             <img src="/Trust/img/SCREEN MASK.png" className="absolute inset-0 w-full h-full object-cover" alt="Platform Preview" />
           </div>
         </div>
       </section>
@@ -175,12 +175,12 @@ export default function App() {
         </p>
         
         <div className="flex flex-wrap justify-center items-center gap-12 max-w-6xl mx-auto">
-          <img src="/img/logos_google.svg" alt="Google" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
-          <img src="/img/Rectangle.png" alt="Partner 1" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
-          <img src="/img/Rectangle-1.png" alt="Partner 2" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
-          <img src="/img/Rectangle-2.png" alt="Partner 3" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
-          <img src="/img/Rectangle-3.png" alt="Partner 4" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
-          <img src="/img/logos_ibm.svg" alt="IBM" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+          <img src="/Trust/img/logos_google.svg" alt="Google" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+          <img src="/Trust/img/Rectangle.png" alt="Partner 1" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+          <img src="/Trust/img/Rectangle-1.png" alt="Partner 2" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+          <img src="/Trust/img/Rectangle-2.png" alt="Partner 3" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+          <img src="/Trust/img/Rectangle-3.png" alt="Partner 4" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+          <img src="/Trust/img/logos_ibm.svg" alt="IBM" className="h-12 object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
         </div>
         
         <div className="mt-16">
@@ -201,7 +201,7 @@ export default function App() {
           </p>
           <div className="flex items-center gap-4 mt-6">
             <Avatar className="w-16 h-16 border-2 border-[#2091f9]">
-              <AvatarImage src="/img/Ellipse 2.png" alt="Ivan Tortolero" />
+              <AvatarImage src="/Trust/img/Ellipse 2.png" alt="Ivan Tortolero" />
               <AvatarFallback>IT</AvatarFallback>
             </Avatar>
             <div className="flex flex-col items-start">
@@ -318,21 +318,21 @@ export default function App() {
           <div className="w-full md:w-1/2 flex flex-col gap-10">
             <div className="flex flex-col gap-8">
               <div className="flex items-center gap-4">
-                <img src="/img/bx_bx-map.svg" className="w-8 h-8" alt="" />
+                <img src="/Trust/img/bx_bx-map.svg" className="w-8 h-8" alt="" />
                 <span className="text-lg text-[#374754]">Naguanagua, Venezuela</span>
               </div>
               <div className="flex items-center gap-4">
-                <img src="/img/ic_baseline-phone-android.svg" className="w-8 h-8" alt="" />
+                <img src="/Trust/img/ic_baseline-phone-android.svg" className="w-8 h-8" alt="" />
                 <span className="text-lg text-[#374754]">+58 424-4742482</span>
               </div>
               <div className="flex items-center gap-4">
-                <img src="/img/ant-design_mail-outlined.svg" className="w-8 h-8" alt="" />
+                <img src="/Trust/img/ant-design_mail-outlined.svg" className="w-8 h-8" alt="" />
                 <span className="text-lg text-[#374754]">Ventas1@trustcontainer.com</span>
               </div>
             </div>
             
             <div className="w-full h-[300px] bg-gray-200 rounded-3xl overflow-hidden mt-4 relative shadow-md">
-               <img src="/img/@ map screen.png" className="absolute inset-0 w-full h-full object-cover" alt="Map" />
+               <img src="/Trust/img/@ map screen.png" className="absolute inset-0 w-full h-full object-cover" alt="Map" />
             </div>
           </div>
         </div>
@@ -341,7 +341,7 @@ export default function App() {
       {/* FOOTER */}
       <footer className="w-full py-16 bg-[#252b42] px-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-          <img src="/img/Rectangle 4.png" alt="Trust Container" className="h-8 brightness-0 invert" />
+          <img src="/Trust/img/Rectangle 4.png" alt="Trust Container" className="h-8 brightness-0 invert" />
           <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
             <div className="flex items-center gap-3 text-white/90">
               <MapPin className="w-5 h-5" />
