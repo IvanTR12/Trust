@@ -316,9 +316,9 @@ export default function App() {
               <span className="text-sm font-semibold text-[#2091f9] uppercase tracking-wider">Door-to-Door</span>
               <h3 className="text-2xl font-bold text-[#252b42] mt-2">Trust Premium</h3>
             </div>
-            <div className="flex items-end justify-center gap-1">
+            <div className="flex flex-col items-center justify-center">
               <span className="text-lg font-bold text-[#374754]">Cotización</span>
-              <span className="text-4xl font-bold text-[#252b42]">Personalizada</span>
+              <span className="text-5xl font-bold text-[#252b42]">A Medida</span>
             </div>
             <div className="w-full h-[1px] bg-gray-200" />
             <div className="flex flex-col gap-4 w-full mt-2">
