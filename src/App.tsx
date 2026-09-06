@@ -172,7 +172,7 @@ export default function App() {
               className="rounded-[39px] bg-[#f4f4f4] border-[#e8e8e8] py-[19px] px-[35px] text-[14px] h-auto w-full"
             />
             <Button className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-[35px] px-[35px] py-[17px] h-auto text-[20px] w-full md:w-auto font-normal">
-              Subscribe
+              Suscribirse
             </Button>
           </div>
         </div>
@@ -203,7 +203,7 @@ export default function App() {
         
         <div className="mt-[80px]">
           <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-[35px] px-[40px] py-[16px] h-auto text-[20px] font-bold leading-[28px] w-[236px]">
-            <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Try For Free</a>
+            <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Cotiza Gratis</a>
           </Button>
         </div>
       </section>
@@ -222,8 +222,8 @@ export default function App() {
           <div className="flex items-center gap-[11px]">
             <img src="/img/Ellipse 2.png" className="w-[42px] h-[42px] rounded-full object-cover" alt="Avatar" />
             <div className="flex flex-col items-start">
-              <span className="text-[10px] md:text-sm font-bold text-[#374754] leading-[15px]">Organize across</span>
-              <span className="text-[12.5px] md:text-sm text-[#252b42] font-normal leading-[23px]">Ui designer</span>
+              <span className="text-[10px] md:text-sm font-bold text-[#374754] leading-[15px]">Héctor Vásquez</span>
+              <span className="text-[12.5px] md:text-sm text-[#252b42] font-normal leading-[23px]">Director General y Comercial</span>
             </div>
           </div>
         </div>
@@ -338,15 +338,15 @@ export default function App() {
             <div className="flex flex-col gap-8">
               <div className="flex items-center gap-4">
                 <img src="/img/bx_bx-map.svg" className="w-8 h-8" alt="" />
-                <span className="text-lg text-[#374754]">Naguanagua, Venezuela</span>
+                <span className="text-lg text-[#374754]">C.C. Concepto La Granja, Torre Empresarial, Piso 4, Of. 4-02, Naguanagua, Edo. Carabobo</span>
               </div>
               <div className="flex items-center gap-4">
                 <img src="/img/ic_baseline-phone-android.svg" className="w-8 h-8" alt="" />
-                <span className="text-lg text-[#374754]">+58 424-4742482</span>
+                <a href="https://wa.me/584244742482" target="_blank" rel="noopener noreferrer" className="text-lg text-[#374754] hover:text-[#2091f9] transition-colors">+58 424-4742482</a>
               </div>
               <div className="flex items-center gap-4">
                 <img src="/img/ant-design_mail-outlined.svg" className="w-8 h-8" alt="" />
-                <span className="text-lg text-[#374754]">Ventas1@trustcontainer.com</span>
+                <a href="mailto:ventas1@trustcontainer.com" className="text-lg text-[#374754] hover:text-[#2091f9] transition-colors">ventas1@trustcontainer.com</a>
               </div>
             </div>
             
@@ -364,7 +364,7 @@ export default function App() {
           <div className="flex flex-col items-center gap-[20px] text-white w-full">
             <div className="flex items-center gap-[10px]">
               <MapPin className="w-[30px] h-[30px]" />
-              <span className="text-[20px] leading-[28px] font-bold">Naguanagua, Venezuela</span>
+              <span className="text-[20px] leading-[28px] font-bold">C.C. Concepto La Granja, Naguanagua, Edo. Carabobo</span>
             </div>
             <div className="flex items-center gap-[10px]">
               <Smartphone className="w-[30px] h-[30px]" />
