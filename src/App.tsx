@@ -5,7 +5,8 @@ import {
   Briefcase, 
   MapPin,
   Smartphone,
-  Menu
+  Menu,
+  Check
 } from "lucide-react";
 
 export default function App() {
@@ -236,76 +237,107 @@ export default function App() {
       {/* PRICING */}
       <section className="flex flex-col items-center w-full py-[100px] md:py-24 px-[28px] md:px-4 bg-[#252b42]">
         <div className="flex flex-col gap-[7px] text-center mb-[80px]">
-          <h2 className="text-[48px] leading-[55px] text-white tracking-[0.2px]">Pricing</h2>
+          <h2 className="text-[48px] leading-[55px] text-white tracking-[0.2px]">Nuestros Servicios</h2>
           <p className="text-[28px] leading-[40px] text-white tracking-[0.2px] max-w-2xl font-light">
-            Tenemos las cotizaciones más competitivas del mercado
+            Soluciones logísticas adaptadas a cada necesidad. Desde carga consolidada hasta operaciones puerta a puerta.
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Pricing Card 1 */}
+          {/* Pricing Card 1 - Trust Express */}
           <div className="bg-white rounded-xl p-10 flex flex-col items-center gap-6 shadow-xl w-full max-w-[340px] mx-auto">
             <div className="text-center">
-              <h3 className="text-xl font-bold text-[#252b42] uppercase">Orígenes de<br/>Europa</h3>
+              <span className="text-sm font-semibold text-[#2091f9] uppercase tracking-wider">Carga Consolidada</span>
+              <h3 className="text-2xl font-bold text-[#252b42] mt-2">Trust Express</h3>
             </div>
-            <div className="flex items-start justify-center">
-              <span className="text-2xl font-bold text-[#252b42] mt-4">$</span>
-              <span className="text-7xl font-bold text-[#252b42]">100</span>
-              <span className="text-sm text-[#374754] mt-12 ml-2">A partir de</span>
+            <div className="flex items-end justify-center gap-1">
+              <span className="text-lg font-bold text-[#374754]">Desde</span>
+              <span className="text-5xl font-bold text-[#252b42]">$85</span>
+              <span className="text-sm text-[#374754] mb-2">/CBM</span>
             </div>
-            <div className="flex flex-col gap-4 w-full mt-4">
-              {['Valencia', 'Barcelona', 'Bilbao', 'Algeciras', 'Y más...'].map((item, i) => (
-                <div key={i} className="flex items-center justify-center text-[#252b42] text-lg">
-                  {item}
+            <div className="w-full h-[1px] bg-gray-200" />
+            <div className="flex flex-col gap-4 w-full mt-2">
+              {[
+                'Envíos LCL desde cualquier origen',
+                'Consolidación de carga',
+                'Seguimiento en tiempo real',
+                'Seguro básico incluido',
+                'Asesoría documental',
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-3 text-[#252b42] text-base">
+                  <Check className="w-5 h-5 text-[#2091f9] mt-0.5 flex-shrink-0" />
+                  <span>{item}</span>
                 </div>
               ))}
             </div>
             <Button asChild className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg">
-              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Consulta Ahora</a>
+              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Solicitar Cotización</a>
             </Button>
           </div>
 
-          {/* Pricing Card 2 (Featured) */}
-          <div className="bg-[#2091f9] rounded-xl p-10 flex flex-col items-center gap-6 shadow-2xl transform scale-105 w-full max-w-[340px] mx-auto z-10 border border-[#2091f9]">
+          {/* Pricing Card 2 (Featured) - Trust Full */}
+          <div className="bg-[#2091f9] rounded-xl p-10 flex flex-col items-center gap-6 shadow-2xl transform scale-105 w-full max-w-[340px] mx-auto z-10 border border-[#2091f9] relative overflow-hidden">
+            <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">
+              Más Popular
+            </div>
             <div className="text-center">
-              <h3 className="text-xl font-bold text-white uppercase">Orígenes de<br/>China</h3>
+              <span className="text-sm font-semibold text-white/80 uppercase tracking-wider">Contenedor Completo</span>
+              <h3 className="text-2xl font-bold text-white mt-2">Trust Full</h3>
             </div>
-            <div className="flex items-start justify-center text-white">
-              <span className="text-2xl font-bold mt-4">$</span>
-              <span className="text-7xl font-bold">100</span>
-              <span className="text-sm mt-12 ml-2">A partir de</span>
+            <div className="flex items-end justify-center gap-1 text-white">
+              <span className="text-lg font-bold opacity-80">Desde</span>
+              <span className="text-5xl font-bold">$1,200</span>
+              <span className="text-sm mb-2 opacity-80">/FCL</span>
             </div>
-            <div className="flex flex-col gap-4 w-full mt-4">
-              {['Shanghai', 'Shenzhen', 'Shekou', 'Yantian', 'Y más...'].map((item, i) => (
-                <div key={i} className="flex items-center justify-center text-white text-lg">
-                  {item}
+            <div className="w-full h-[1px] bg-white/20" />
+            <div className="flex flex-col gap-4 w-full mt-2">
+              {[
+                'FCL 20\' y 40\' a cualquier destino',
+                'Negociación directa con navieras',
+                'Gestión aduanera completa',
+                'Seguro a todo riesgo',
+                'Migración de CIF a FOB',
+                'Asesor logístico dedicado',
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-3 text-white text-base">
+                  <Check className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
+                  <span>{item}</span>
                 </div>
               ))}
             </div>
-            <Button asChild className="w-full mt-6 bg-white hover:bg-gray-100 text-[#2091f9] rounded-full py-6 text-lg">
-              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Consulta Ahora</a>
+            <Button asChild className="w-full mt-6 bg-white hover:bg-gray-100 text-[#2091f9] rounded-full py-6 text-lg font-bold">
+              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Solicitar Cotización</a>
             </Button>
           </div>
 
-          {/* Pricing Card 3 */}
+          {/* Pricing Card 3 - Trust Premium */}
           <div className="bg-white rounded-xl p-10 flex flex-col items-center gap-6 shadow-xl w-full max-w-[340px] mx-auto">
             <div className="text-center">
-              <h3 className="text-xl font-bold text-[#252b42] uppercase">Orígenes de Turquía<br/>e India</h3>
+              <span className="text-sm font-semibold text-[#2091f9] uppercase tracking-wider">Door-to-Door</span>
+              <h3 className="text-2xl font-bold text-[#252b42] mt-2">Trust Premium</h3>
             </div>
-            <div className="flex items-start justify-center">
-              <span className="text-2xl font-bold text-[#252b42] mt-4">$</span>
-              <span className="text-7xl font-bold text-[#252b42]">100</span>
-              <span className="text-sm text-[#374754] mt-12 ml-2">A partir de</span>
+            <div className="flex items-end justify-center gap-1">
+              <span className="text-lg font-bold text-[#374754]">Cotización</span>
+              <span className="text-4xl font-bold text-[#252b42]">Personalizada</span>
             </div>
-            <div className="flex flex-col gap-4 w-full mt-4">
-              {['Mundra', 'Nhava Sheva', 'Gemlik', 'Estambul', 'y más...'].map((item, i) => (
-                <div key={i} className="flex items-center justify-center text-[#252b42] text-lg">
-                  {item}
+            <div className="w-full h-[1px] bg-gray-200" />
+            <div className="flex flex-col gap-4 w-full mt-2">
+              {[
+                'Servicio puerta a puerta',
+                'Transporte multimodal integral',
+                'Desaduanamiento en destino',
+                'Almacenaje y distribución',
+                'Seguro premium todo riesgo',
+                'Soporte 24/7 dedicado',
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-3 text-[#252b42] text-base">
+                  <Check className="w-5 h-5 text-[#2091f9] mt-0.5 flex-shrink-0" />
+                  <span>{item}</span>
                 </div>
               ))}
             </div>
             <Button asChild className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg">
-              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Consulta Ahora</a>
+              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Solicitar Cotización</a>
             </Button>
           </div>
         </div>
