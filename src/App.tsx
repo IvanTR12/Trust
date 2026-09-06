@@ -21,7 +21,7 @@ export default function App() {
         <div 
           className="absolute inset-0 z-0"
           style={{ 
-            backgroundImage: 'url("/Trust/img/Rectangle 9.png")', 
+            backgroundImage: 'url("/img/Rectangle 9.png")', 
             backgroundSize: 'cover', 
             backgroundPosition: 'center top',
             backgroundRepeat: 'no-repeat'
@@ -35,7 +35,7 @@ export default function App() {
           
           {/* Centered Logo */}
           <div className="flex-1 flex justify-start md:justify-center">
-            <img src="/Trust/img/Rectangle 4.png" alt="Trust Container" className="h-[58px] brightness-0 invert object-contain" />
+            <img src="/img/Rectangle 4.png" alt="Trust Container" className="h-[58px] brightness-0 invert object-contain" />
           </div>
 
           {/* Right Menu (Mobile) / Social Icons (Desktop) */}
@@ -43,13 +43,13 @@ export default function App() {
             {/* Desktop Socials */}
             <div className="hidden md:flex items-center gap-6">
               <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
-                <img src="/Trust/img/ant-design_twitter-outlined.svg" className="w-8 h-8 brightness-0 invert" alt="Twitter" />
+                <img src="/img/ant-design_twitter-outlined.svg" className="w-8 h-8 brightness-0 invert" alt="Twitter" />
               </Button>
               <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
-                <img src="/Trust/img/ant-design_facebook-filled.svg" className="w-8 h-8 brightness-0 invert" alt="Facebook" />
+                <img src="/img/ant-design_facebook-filled.svg" className="w-8 h-8 brightness-0 invert" alt="Facebook" />
               </Button>
               <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
-                <img src="/Trust/img/ant-design_linkedin-filled.svg" className="w-8 h-8 brightness-0 invert" alt="LinkedIn" />
+                <img src="/img/ant-design_linkedin-filled.svg" className="w-8 h-8 brightness-0 invert" alt="LinkedIn" />
               </Button>
             </div>
             {/* Mobile Menu */}
@@ -89,7 +89,7 @@ export default function App() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[75px] max-w-6xl mx-auto mb-20">
           <div className="flex flex-col items-center text-center gap-[10px] max-w-[255px] mx-auto">
             <div className="mb-2 flex items-center justify-center w-[61px] h-[61px]">
-              <img src="/Trust/img/mdi_drawing.svg" className="w-full h-full" alt="" />
+              <img src="/img/mdi_drawing.svg" className="w-full h-full" alt="" />
             </div>
             <h3 className="text-[20px] leading-[28px] font-bold text-[#252b42]">Alcance Global</h3>
             <p className="text-[18px] leading-[25px] text-[#374754]">
@@ -99,7 +99,7 @@ export default function App() {
           
           <div className="flex flex-col items-center text-center gap-[10px] max-w-[255px] mx-auto">
             <div className="mb-2 flex items-center justify-center w-[56px] h-[56px]">
-              <img src="/Trust/img/mdi_draw.svg" className="w-full h-full" alt="" />
+              <img src="/img/mdi_draw.svg" className="w-full h-full" alt="" />
             </div>
             <h3 className="text-[20px] leading-[28px] font-bold text-[#252b42]">Seguridad Total</h3>
             <p className="text-[18px] leading-[25px] text-[#374754]">
@@ -109,7 +109,7 @@ export default function App() {
           
           <div className="flex flex-col items-center text-center gap-[10px] max-w-[255px] mx-auto">
             <div className="mb-2 flex items-center justify-center w-[61px] h-[61px]">
-              <img src="/Trust/img/mdi_brush.svg" className="w-full h-full" alt="" />
+              <img src="/img/mdi_brush.svg" className="w-full h-full" alt="" />
             </div>
             <h3 className="text-[20px] leading-[28px] font-bold text-[#252b42]">Experiencia Real</h3>
             <p className="text-[18px] leading-[25px] text-[#374754]">
@@ -119,9 +119,9 @@ export default function App() {
         </div>
         
         <div className="relative w-full max-w-5xl aspect-[16/9] bg-gray-200 rounded-[40px] flex items-center justify-center shadow-2xl overflow-hidden group cursor-pointer">
-          <img src="/Trust/img/screen.png" className="absolute inset-0 w-full h-full object-cover" alt="Video Screen" />
+          <img src="/img/screen.png" className="absolute inset-0 w-full h-full object-cover" alt="Video Screen" />
           <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors z-10" />
-          <img src="/Trust/img/el_play.svg" className="w-24 h-24 z-20 opacity-90 group-hover:scale-110 transition-transform" alt="Play" />
+          <img src="/img/el_play.svg" className="w-24 h-24 z-20 opacity-90 group-hover:scale-110 transition-transform" alt="Play" />
         </div>
       </section>
 
@@ -143,7 +143,7 @@ export default function App() {
         
         <div className="relative w-full max-w-2xl bg-white p-4 rounded-xl shadow-xl">
           <div className="aspect-[16/10] bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center relative">
-             <img src="/Trust/img/SCREEN MASK.png" className="absolute inset-0 w-full h-full object-cover" alt="Platform Preview" />
+             <img src="/img/SCREEN MASK.png" className="absolute inset-0 w-full h-full object-cover" alt="Platform Preview" />
           </div>
         </div>
       </section>
@@ -152,7 +152,7 @@ export default function App() {
       <section className="flex flex-col md:flex-row items-center justify-between w-full py-20 md:py-24 px-5 md:px-10 max-w-7xl mx-auto gap-[59px]">
         <div className="w-full md:w-1/2 flex justify-center order-2 md:order-1">
           <div className="relative w-full max-w-[389px] aspect-[4/3] rounded-full flex items-center justify-center">
-             <img src="/Trust/img/Vector-23.svg" className="absolute w-32 h-32 object-contain hidden" alt="" />
+             <img src="/img/Vector-23.svg" className="absolute w-32 h-32 object-contain hidden" alt="" />
              {/* Using briefcase as placeholder for the undraw image in Figma */}
              <Briefcase className="w-32 h-32 text-[#2091f9]" />
           </div>
@@ -191,13 +191,13 @@ export default function App() {
         
         <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-[30px] md:gap-12 max-w-6xl mx-auto w-full">
           <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-auto max-w-[275px]">
-            <img src="/Trust/img/logos_google.svg" alt="Google" className="h-[63px] object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+            <img src="/img/logos_google.svg" alt="Google" className="h-[63px] object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
           </div>
           <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-auto max-w-[275px]">
-            <img src="/Trust/img/Rectangle.png" alt="Amazon" className="h-[58px] object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+            <img src="/img/Rectangle.png" alt="Amazon" className="h-[58px] object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
           </div>
           <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-auto max-w-[275px]">
-            <img src="/Trust/img/Rectangle-1.png" alt="Microsoft" className="h-[77px] object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+            <img src="/img/Rectangle-1.png" alt="Microsoft" className="h-[77px] object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
           </div>
         </div>
         
@@ -214,13 +214,13 @@ export default function App() {
         
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto gap-[44px] mb-[80px]">
           <div className="flex items-center justify-center">
-            <img src="/Trust/img/logos_ibm.svg" alt="IBM" className="h-[50px] object-contain grayscale" />
+            <img src="/img/logos_ibm.svg" alt="IBM" className="h-[50px] object-contain grayscale" />
           </div>
           <p className="text-[13.5px] md:text-[24px] text-[#374754] font-bold leading-[17px] md:leading-relaxed max-w-md">
             "En Trust Container, la logística dejó de ser una preocupación para convertirse en nuestra mayor ventaja competitiva."
           </p>
           <div className="flex items-center gap-[11px]">
-            <img src="/Trust/img/Ellipse 2.png" className="w-[42px] h-[42px] rounded-full object-cover" alt="Avatar" />
+            <img src="/img/Ellipse 2.png" className="w-[42px] h-[42px] rounded-full object-cover" alt="Avatar" />
             <div className="flex flex-col items-start">
               <span className="text-[10px] md:text-sm font-bold text-[#374754] leading-[15px]">Organize across</span>
               <span className="text-[12.5px] md:text-sm text-[#252b42] font-normal leading-[23px]">Ui designer</span>
@@ -337,21 +337,21 @@ export default function App() {
           <div className="w-full md:w-1/2 flex flex-col gap-10">
             <div className="flex flex-col gap-8">
               <div className="flex items-center gap-4">
-                <img src="/Trust/img/bx_bx-map.svg" className="w-8 h-8" alt="" />
+                <img src="/img/bx_bx-map.svg" className="w-8 h-8" alt="" />
                 <span className="text-lg text-[#374754]">Naguanagua, Venezuela</span>
               </div>
               <div className="flex items-center gap-4">
-                <img src="/Trust/img/ic_baseline-phone-android.svg" className="w-8 h-8" alt="" />
+                <img src="/img/ic_baseline-phone-android.svg" className="w-8 h-8" alt="" />
                 <span className="text-lg text-[#374754]">+58 424-4742482</span>
               </div>
               <div className="flex items-center gap-4">
-                <img src="/Trust/img/ant-design_mail-outlined.svg" className="w-8 h-8" alt="" />
+                <img src="/img/ant-design_mail-outlined.svg" className="w-8 h-8" alt="" />
                 <span className="text-lg text-[#374754]">Ventas1@trustcontainer.com</span>
               </div>
             </div>
             
             <div className="w-full h-[300px] bg-gray-200 rounded-3xl overflow-hidden mt-4 relative shadow-md">
-               <img src="/Trust/img/@ map screen.png" className="absolute inset-0 w-full h-full object-cover" alt="Map" />
+               <img src="/img/@ map screen.png" className="absolute inset-0 w-full h-full object-cover" alt="Map" />
             </div>
           </div>
         </div>
@@ -360,7 +360,7 @@ export default function App() {
       {/* FOOTER */}
       <footer className="w-full py-[50px] md:py-16 bg-[#252b42] px-[20px] md:px-10">
         <div className="max-w-6xl mx-auto flex flex-col justify-center items-center gap-[40px] text-center">
-          <img src="/Trust/img/Rectangle 4.png" alt="Trust Container" className="h-[58px] brightness-0 invert object-contain mb-[20px]" />
+          <img src="/img/Rectangle 4.png" alt="Trust Container" className="h-[58px] brightness-0 invert object-contain mb-[20px]" />
           <div className="flex flex-col items-center gap-[20px] text-white w-full">
             <div className="flex items-center gap-[10px]">
               <MapPin className="w-[30px] h-[30px]" />
@@ -372,13 +372,13 @@ export default function App() {
             </div>
             <div className="flex gap-[24px] mt-[30px]">
               <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 rounded-full w-[40px] h-[40px] p-0">
-                <img src="/Trust/img/ant-design_twitter-outlined.svg" className="w-full h-full brightness-0 invert" alt="Twitter" />
+                <img src="/img/ant-design_twitter-outlined.svg" className="w-full h-full brightness-0 invert" alt="Twitter" />
               </Button>
               <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 rounded-full w-[40px] h-[40px] p-0">
-                <img src="/Trust/img/ant-design_facebook-filled.svg" className="w-full h-full brightness-0 invert" alt="Facebook" />
+                <img src="/img/ant-design_facebook-filled.svg" className="w-full h-full brightness-0 invert" alt="Facebook" />
               </Button>
               <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 rounded-full w-[40px] h-[40px] p-0">
-                <img src="/Trust/img/ant-design_linkedin-filled.svg" className="w-full h-full brightness-0 invert" alt="LinkedIn" />
+                <img src="/img/ant-design_linkedin-filled.svg" className="w-full h-full brightness-0 invert" alt="LinkedIn" />
               </Button>
             </div>
           </div>
