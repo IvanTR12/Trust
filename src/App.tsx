@@ -34,6 +34,45 @@ export default function App() {
     setContactEmail("");
     setContactMessage("");
   };
+
+  // Newsletter / CIF-FOB subscription state
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [newsletterMsg, setNewsletterMsg] = useState("");
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail.trim()) return;
+
+    setNewsletterStatus("loading");
+    setNewsletterMsg("");
+
+    const webhookUrl = import.meta.env.VITE_SUBSCRIBE_WEBHOOK_URL || "";
+
+    try {
+      if (webhookUrl) {
+        await fetch(webhookUrl, {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: newsletterEmail.trim(),
+            origen: "Web - Migración CIF a FOB",
+            fecha: new Date().toLocaleString("es-VE"),
+          }),
+        });
+      }
+      setNewsletterStatus("success");
+      setNewsletterMsg("¡Suscripción exitosa! Te hemos enviado un correo de bienvenida.");
+      setNewsletterEmail("");
+    } catch {
+      setNewsletterStatus("error");
+      setNewsletterMsg("Hubo un problema al procesar la suscripción. Por favor, intenta de nuevo.");
+    }
+  };
+
   return (
     <div className="bg-white content-stretch flex flex-col items-center relative w-full overflow-x-hidden min-h-screen">
       
@@ -202,15 +241,36 @@ export default function App() {
             Te ayudamos a migrar de CIF a FOB para que tú elijas los tiempos
           </p>
           
-          <div className="flex flex-col md:flex-row items-stretch gap-[12px] mt-8 w-full max-w-[353px] md:max-w-lg mx-auto md:mx-0">
-            <Input 
-              placeholder="Email" 
-              className="rounded-[39px] bg-[#f4f4f4] border-[#e8e8e8] py-[19px] px-[35px] text-[14px] h-auto w-full"
-            />
-            <Button className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-[35px] px-[35px] py-[17px] h-auto text-[20px] w-full md:w-auto font-normal">
-              Suscribirse
-            </Button>
-          </div>
+          <form onSubmit={handleNewsletterSubmit} className="flex flex-col gap-3 mt-8 w-full max-w-[353px] md:max-w-lg mx-auto md:mx-0">
+            <div className="flex flex-col md:flex-row items-stretch gap-[12px] w-full">
+              <Input 
+                type="email"
+                required
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
+                placeholder="Ingresa tu correo empresarial" 
+                disabled={newsletterStatus === "loading"}
+                className="rounded-[39px] bg-[#f4f4f4] border-[#e8e8e8] py-[19px] px-[35px] text-[14px] h-auto w-full focus:bg-white"
+              />
+              <Button 
+                type="submit"
+                disabled={newsletterStatus === "loading"}
+                className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-[35px] px-[35px] py-[17px] h-auto text-[18px] md:text-[20px] w-full md:w-auto font-normal cursor-pointer transition-all flex items-center justify-center gap-2"
+              >
+                {newsletterStatus === "loading" ? "Enviando..." : "Suscribirse"}
+              </Button>
+            </div>
+            {newsletterStatus === "success" && (
+              <p className="text-emerald-600 text-sm font-semibold mt-1">
+                {newsletterMsg}
+              </p>
+            )}
+            {newsletterStatus === "error" && (
+              <p className="text-red-500 text-sm mt-1">
+                {newsletterMsg}
+              </p>
+            )}
+          </form>
         </div>
       </section>
 

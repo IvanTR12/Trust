@@ -1,0 +1,62 @@
+**¡Sí, totalmente! De hecho es la mejor combinación posible:**
+
+1. **EmailJS:** Envía el correo al cliente **desde tu Outlook oficial** (`ventas1@trustcontainer.com`).
+2. **Google Sheets:** Guarda el registro en tiempo real en tu hoja de cálculo para uso interno (exportable a Excel).
+
+---
+
+### ¿Cómo funciona en conjunto?
+
+Cuando el cliente hace clic en **"Suscribirse"**, la página ejecuta ambas tareas en paralelo en menos de 1 segundo:
+
+```mermaid
+flowchart TD
+    A[Cliente escribe correo y hace clic] --> B[Página Web]
+    B -->|Tarea 1| C[EmailJS]
+    C -->|Envía correo| D[Outlook ventas1@trustcontainer.com]
+    D -->|Llega al cliente| E[Bandeja del Cliente]
+    
+    B -->|Tarea 2| F[Google Sheets]
+    F -->|Guarda fila| G[Excel / Base de Datos Interna]
+```
+
+---
+
+### Lo que hace cada parte:
+
+#### 1. En Google Sheets (Solo para guardar datos):
+Como EmailJS ya se encarga del correo desde tu Outlook, el script de Google Sheets ahora es **súper simple y ligero** (solo 5 líneas para registrar la fila):
+
+```javascript
+function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+    
+    // Inserta: Fecha y hora, Correo del suscriptor, Origen
+    sheet.appendRow([new Date(), data.email, data.origen || "Web - CIF a FOB"]);
+    
+    return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+```
+
+#### 2. En EmailJS (Solo para el correo desde Outlook):
+* Conectas tu cuenta de Outlook (`ventas1@trustcontainer.com`).
+* Creas la plantilla de bienvenida que le llegará al cliente.
+
+---
+
+### ¿Qué datos necesitamos para dejarlo listo?
+
+1. La **URL de tu Google Sheet** (la que te da al publicar el script como Aplicación web).
+2. Los 3 datos de **EmailJS**:
+   * `SERVICE_ID` (tu conexión con Outlook).
+   * `TEMPLATE_ID` (tu plantilla de bienvenida).
+   * `PUBLIC_KEY` (tu clave de EmailJS).
+
+Cuando tengas la URL de Sheets y las claves de EmailJS, me las pasas y lo dejamos 100% conectado y funcionando en vivo.
