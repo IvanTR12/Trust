@@ -7,7 +7,10 @@ import {
   MapPin,
   Smartphone,
   Menu,
-  Check
+  Check,
+  Ship,
+  Truck,
+  Package
 } from "lucide-react";
 import { TrustFullModal } from "@/components/TrustFullModal";
 import { TrustConsolidadaDoorModal, type ServiceMode } from "@/components/TrustConsolidadaDoorModal";
@@ -63,15 +66,26 @@ export default function App() {
           {/* Right Menu (Mobile) / Social Icons (Desktop) */}
           <div className="flex-1 flex justify-end items-center gap-6">
             {/* Desktop Socials */}
-            <div className="hidden md:flex items-center gap-6">
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
-                <img src="/img/ant-design_twitter-outlined.svg" className="w-8 h-8 brightness-0 invert" alt="Twitter" />
+            <div className="hidden md:flex items-center gap-4">
+              <Button asChild variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
+                <a 
+                  href="https://www.linkedin.com/company/trust-container" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <img src="/img/ant-design_linkedin-filled.svg" className="w-8 h-8 brightness-0 invert" alt="LinkedIn" />
+                </a>
               </Button>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
-                <img src="/img/ant-design_facebook-filled.svg" className="w-8 h-8 brightness-0 invert" alt="Facebook" />
-              </Button>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
-                <img src="/img/ant-design_linkedin-filled.svg" className="w-8 h-8 brightness-0 invert" alt="LinkedIn" />
+              <Button asChild variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
+                <a 
+                  href="https://www.instagram.com/fullcontainertrust/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                >
+                  <img src="/img/ant-design_instagram-outlined.svg" className="w-8 h-8 brightness-0 invert" alt="Instagram" />
+                </a>
               </Button>
             </div>
             {/* Mobile Menu */}
@@ -256,68 +270,52 @@ export default function App() {
       </section>
 
       {/* PRICING */}
-      <section id="cotizaciones" className="flex flex-col items-center w-full py-[100px] md:py-24 px-[28px] md:px-4 bg-[#252b42] scroll-mt-10">
-        <div className="flex flex-col gap-[7px] text-center mb-[80px]">
-          <h2 className="text-[48px] leading-[55px] text-white tracking-[0.2px]">Nuestros Servicios</h2>
-          <p className="text-[28px] leading-[40px] text-white tracking-[0.2px] max-w-2xl font-light">
+      <section id="cotizaciones" className="flex flex-col items-center w-full py-[100px] md:py-24 px-4 sm:px-6 md:px-8 bg-[#252b42] scroll-mt-10">
+        <div className="flex flex-col gap-[7px] text-center mb-[50px] md:mb-[70px]">
+          <h2 className="text-[36px] md:text-[48px] leading-[44px] md:leading-[55px] text-white tracking-[0.2px] font-bold">Nuestros Servicios</h2>
+          <p className="text-[18px] md:text-[24px] leading-[28px] md:leading-[36px] text-white/80 tracking-[0.2px] max-w-2xl font-light">
             Soluciones logísticas adaptadas a cada necesidad. Desde carga consolidada hasta operaciones puerta a puerta.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Pricing Card 1 - Trust Express */}
-          <div className="bg-white rounded-xl p-10 flex flex-col items-center gap-6 shadow-xl w-full max-w-[340px] mx-auto">
-            <div className="text-center">
-              <span className="text-sm font-semibold text-[#2091f9] uppercase tracking-wider">Carga Consolidada</span>
-              <h3 className="text-2xl font-bold text-[#252b42] mt-2">Trust Express</h3>
-            </div>
-            <div className="flex items-end justify-center gap-1">
-              <span className="text-lg font-bold text-[#374754]">Desde</span>
-              <span className="text-5xl font-bold text-[#252b42]">$85</span>
-              <span className="text-sm text-[#374754] mb-2">/CBM</span>
-            </div>
-            <div className="w-full h-[1px] bg-gray-200" />
-            <div className="flex flex-col gap-4 w-full mt-2">
-              {[
-                'Envíos LCL desde cualquier origen',
-                'Consolidación de carga',
-                'Seguimiento en tiempo real',
-                'Seguro básico incluido',
-                'Asesoría documental',
-              ].map((item, i) => (
-                <div key={i} className="flex items-start gap-3 text-[#252b42] text-base">
-                  <Check className="w-5 h-5 text-[#2091f9] mt-0.5 flex-shrink-0" />
-                  <span>{item}</span>
+        <div className="flex flex-col gap-8 max-w-5xl w-full mx-auto">
+          {/* 1 ARRIBA - Trust Full Container Loaded (FCL) */}
+          <div className="bg-gradient-to-br from-[#2091f9] via-[#1a85e8] to-[#126ec5] rounded-2xl md:rounded-3xl p-8 md:p-12 shadow-2xl border border-blue-400/30 relative overflow-hidden text-white w-full">
+            <div className="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white/10 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 relative z-10">
+              <div className="flex-1">
+                <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-white text-xs md:text-sm font-bold px-3.5 py-1.5 rounded-full mb-3">
+                  <Ship className="w-4 h-4" />
+                  <span>Más Popular • FCL</span>
                 </div>
-              ))}
-            </div>
-            <Button 
-              onClick={() => {
-                setConsolidadaDoorMode("consolidada");
-                setIsConsolidadaDoorModalOpen(true);
-              }}
-              className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg cursor-pointer"
-            >
-              Solicitar Cotización
-            </Button>
-          </div>
+                <span className="block text-xs md:text-sm font-semibold text-white/80 uppercase tracking-widest">
+                  Contenedor Completo
+                </span>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mt-1 mb-3">
+                  Trust Full Container Loaded (FCL)
+                </h3>
+                <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-xl px-4 py-2 my-1">
+                  <span className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                    Desde cualquier origen
+                  </span>
+                </div>
+              </div>
 
-          {/* Pricing Card 2 (Featured) - Trust Full */}
-          <div className="bg-[#2091f9] rounded-xl p-10 flex flex-col items-center gap-6 shadow-2xl transform scale-105 w-full max-w-[340px] mx-auto z-10 border border-[#2091f9] relative overflow-hidden">
-            <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">
-              Más Popular
+              <div className="lg:w-72 flex-shrink-0 flex flex-col justify-center">
+                <Button 
+                  onClick={() => setIsFullModalOpen(true)}
+                  className="w-full bg-white hover:bg-slate-100 text-[#2091f9] hover:text-[#1778d0] rounded-full py-6 text-lg font-bold cursor-pointer shadow-xl hover:shadow-2xl transition-all"
+                >
+                  Solicitar Cotización
+                </Button>
+              </div>
             </div>
-            <div className="text-center">
-              <span className="text-sm font-semibold text-white/80 uppercase tracking-wider">Contenedor Completo</span>
-              <h3 className="text-2xl font-bold text-white mt-2">Trust Full</h3>
-            </div>
-            <div className="flex items-end justify-center gap-1 text-white">
-              <span className="text-lg font-bold opacity-80">Desde</span>
-              <span className="text-5xl font-bold">$1,200</span>
-              <span className="text-sm mb-2 opacity-80">/FCL</span>
-            </div>
-            <div className="w-full h-[1px] bg-white/20" />
-            <div className="flex flex-col gap-4 w-full mt-2">
+
+            <div className="w-full h-[1px] bg-white/20 my-6" />
+
+            {/* FCL Features */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full relative z-10">
               {[
                 'FCL 20\' y 40\' a cualquier destino',
                 'Negociación directa con navieras',
@@ -326,55 +324,114 @@ export default function App() {
                 'Migración de CIF a FOB',
                 'Asesor logístico dedicado',
               ].map((item, i) => (
-                <div key={i} className="flex items-start gap-3 text-white text-base">
+                <div key={i} className="flex items-start gap-3 text-white text-sm md:text-base">
                   <Check className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
                   <span>{item}</span>
                 </div>
               ))}
             </div>
-            <Button 
-              onClick={() => setIsFullModalOpen(true)}
-              className="w-full mt-6 bg-white hover:bg-gray-100 text-[#2091f9] rounded-full py-6 text-lg font-bold cursor-pointer shadow-lg"
-            >
-              Solicitar Cotización
-            </Button>
           </div>
 
-          {/* Pricing Card 3 - Trust Premium */}
-          <div className="bg-white rounded-xl p-10 flex flex-col items-center gap-6 shadow-xl w-full max-w-[340px] mx-auto">
-            <div className="text-center">
-              <span className="text-sm font-semibold text-[#2091f9] uppercase tracking-wider">Door-to-Door</span>
-              <h3 className="text-2xl font-bold text-[#252b42] mt-2">Trust Premium</h3>
-            </div>
-            <div className="flex flex-col items-center justify-center">
-              <span className="text-lg font-bold text-[#374754]">Cotización</span>
-              <span className="text-5xl font-bold text-[#252b42]">A Medida</span>
-            </div>
-            <div className="w-full h-[1px] bg-gray-200" />
-            <div className="flex flex-col gap-4 w-full mt-2">
-              {[
-                'Servicio puerta a puerta',
-                'Transporte multimodal integral',
-                'Desaduanamiento en destino',
-                'Almacenaje y distribución',
-                'Seguro premium todo riesgo',
-                'Soporte 24/7 dedicado',
-              ].map((item, i) => (
-                <div key={i} className="flex items-start gap-3 text-[#252b42] text-base">
-                  <Check className="w-5 h-5 text-[#2091f9] mt-0.5 flex-shrink-0" />
-                  <span>{item}</span>
+          {/* 2 ABAJO - Trust Premium & Trust Express */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+            {/* Card Abajo 1 - Trust Premium */}
+            <div className="bg-white rounded-2xl md:rounded-3xl p-8 md:p-10 flex flex-col justify-between gap-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-all">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-semibold text-[#2091f9] uppercase tracking-wider">
+                    Door-to-Door
+                  </span>
+                  <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#2091f9]">
+                    <Truck className="w-5 h-5" />
+                  </div>
                 </div>
-              ))}
+                <h3 className="text-2xl md:text-3xl font-bold text-[#252b42]">Trust Premium</h3>
+                
+                <div className="mt-4 mb-6">
+                  <span className="text-3xl md:text-4xl font-extrabold text-[#252b42] block">
+                    A su medida
+                  </span>
+                  <span className="text-xs text-slate-500 font-medium">Servicio integral personalizado</span>
+                </div>
+
+                <div className="w-full h-[1px] bg-gray-200 mb-6" />
+
+                <div className="flex flex-col gap-3 w-full">
+                  {[
+                    'Servicio puerta a puerta',
+                    'Transporte multimodal integral',
+                    'Desaduanamiento en destino',
+                    'Almacenaje y distribución',
+                    'Seguro premium todo riesgo',
+                    'Soporte 24/7 dedicado',
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3 text-[#252b42] text-sm md:text-base">
+                      <Check className="w-5 h-5 text-[#2091f9] mt-0.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <Button 
+                onClick={() => {
+                  setConsolidadaDoorMode("door-to-door");
+                  setIsConsolidadaDoorModalOpen(true);
+                }}
+                className="w-full mt-4 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg font-bold cursor-pointer shadow-md hover:shadow-lg transition-all"
+              >
+                Solicitar Cotización
+              </Button>
             </div>
-            <Button 
-              onClick={() => {
-                setConsolidadaDoorMode("door-to-door");
-                setIsConsolidadaDoorModalOpen(true);
-              }}
-              className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg cursor-pointer"
-            >
-              Solicitar Cotización
-            </Button>
+
+            {/* Card Abajo 2 - Trust Express */}
+            <div className="bg-white rounded-2xl md:rounded-3xl p-8 md:p-10 flex flex-col justify-between gap-6 shadow-xl border border-gray-100 hover:shadow-2xl transition-all">
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-semibold text-[#2091f9] uppercase tracking-wider">
+                    Carga Consolidada
+                  </span>
+                  <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#2091f9]">
+                    <Package className="w-5 h-5" />
+                  </div>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-[#252b42]">Trust Express</h3>
+                
+                <div className="mt-4 mb-6">
+                  <span className="text-3xl md:text-4xl font-extrabold text-[#252b42] block">
+                    Según Origen
+                  </span>
+                  <span className="text-xs text-slate-500 font-medium">Tarifa optimizada por ruta y volumen</span>
+                </div>
+
+                <div className="w-full h-[1px] bg-gray-200 mb-6" />
+
+                <div className="flex flex-col gap-3 w-full">
+                  {[
+                    'Envíos LCL desde cualquier origen',
+                    'Consolidación de carga',
+                    'Seguimiento en tiempo real',
+                    'Seguro básico incluido',
+                    'Asesoría documental',
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3 text-[#252b42] text-sm md:text-base">
+                      <Check className="w-5 h-5 text-[#2091f9] mt-0.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <Button 
+                onClick={() => {
+                  setConsolidadaDoorMode("consolidada");
+                  setIsConsolidadaDoorModalOpen(true);
+                }}
+                className="w-full mt-4 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg font-bold cursor-pointer shadow-md hover:shadow-lg transition-all"
+              >
+                Solicitar Cotización
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -455,14 +512,25 @@ export default function App() {
               <span className="text-[20px] leading-[28px] font-bold">+58 424-4742482</span>
             </div>
             <div className="flex gap-[24px] mt-[30px]">
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 rounded-full w-[40px] h-[40px] p-0">
-                <img src="/img/ant-design_twitter-outlined.svg" className="w-full h-full brightness-0 invert" alt="Twitter" />
+              <Button asChild variant="ghost" size="icon" className="text-white hover:bg-white/10 rounded-full w-[40px] h-[40px] p-0">
+                <a 
+                  href="https://www.linkedin.com/company/trust-container" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <img src="/img/ant-design_linkedin-filled.svg" className="w-full h-full brightness-0 invert" alt="LinkedIn" />
+                </a>
               </Button>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 rounded-full w-[40px] h-[40px] p-0">
-                <img src="/img/ant-design_facebook-filled.svg" className="w-full h-full brightness-0 invert" alt="Facebook" />
-              </Button>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 rounded-full w-[40px] h-[40px] p-0">
-                <img src="/img/ant-design_linkedin-filled.svg" className="w-full h-full brightness-0 invert" alt="LinkedIn" />
+              <Button asChild variant="ghost" size="icon" className="text-white hover:bg-white/10 rounded-full w-[40px] h-[40px] p-0">
+                <a 
+                  href="https://www.instagram.com/fullcontainertrust/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                >
+                  <img src="/img/ant-design_instagram-outlined.svg" className="w-full h-full brightness-0 invert" alt="Instagram" />
+                </a>
               </Button>
             </div>
           </div>
