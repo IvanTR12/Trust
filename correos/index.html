@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trust Container - Sistema de 8 Correos de Ventas HTML</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2091f9;
+      --primary-dark: #0f67be;
+      --navy-900: #071324;
+      --navy-800: #0b1a30;
+      --navy-700: #102646;
+      --slate-800: #252b42;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --gold: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background: #081120;
+      color: #f1f5f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    /* HEADER */
+    header {
+      background: rgba(11, 26, 48, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-logo-badge {
+      width: 42px;
+      height: 42px;
+      background: #2091f9;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 24px;
+      color: #fff;
+    }
+    .brand-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+    .brand-subtitle {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: #2091f9;
+      text-transform: uppercase;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-view-toggle {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-view-toggle.active {
+      background: #2091f9;
+      border-color: #2091f9;
+    }
+    .btn-view-toggle:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    /* MAIN LAYOUT */
+    .app-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      flex: 1;
+      height: calc(100vh - 79px);
+      overflow: hidden;
+    }
+    @media (max-width: 960px) {
+      .app-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: visible;
+      }
+    }
+    /* SIDEBAR */
+    .sidebar {
+      background: #0b1a30;
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sidebar-heading {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #64748b;
+      font-weight: 800;
+      padding: 0 10px 6px 10px;
+    }
+    .email-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      width: 100%;
+    }
+    .email-item:hover {
+      background: rgba(32, 145, 249, 0.1);
+      border-color: rgba(32, 145, 249, 0.3);
+      transform: translateY(-1px);
+    }
+    .email-item.active {
+      background: linear-gradient(135deg, rgba(32, 145, 249, 0.2) 0%, rgba(16, 38, 70, 0.8) 100%);
+      border-color: #2091f9;
+      box-shadow: 0 4px 15px rgba(32, 145, 249, 0.2);
+    }
+    .email-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .email-number {
+      font-size: 11px;
+      font-weight: 800;
+      color: #2091f9;
+      background: rgba(32, 145, 249, 0.15);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .email-item.active .email-number {
+      background: #2091f9;
+      color: #fff;
+    }
+    .email-item-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .email-item-desc {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .badge-special {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fbbf24;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+    /* PREVIEW CONTAINER */
+    .preview-panel {
+      background: #081120;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+    .preview-toolbar {
+      background: #0d1e38;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .email-meta {
+      flex: 1;
+      min-width: 280px;
+    }
+    .meta-subject {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .meta-preheader {
+      font-size: 12px;
+      color: #94a3b8;
+      margin-top: 3px;
+    }
+    .toolbar-buttons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-action {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+    }
+    .btn-action.primary {
+      background: #2091f9;
+      border-color: #2091f9;
+    }
+    .btn-action.primary:hover {
+      background: #177cd8;
+    }
+    .iframe-wrapper {
+      flex: 1;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      background: radial-gradient(circle at center, #0f223d 0%, #081120 100%);
+    }
+    .preview-frame {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      background: #f4f7fb;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+      transition: width 0.3s ease;
+      height: 100%;
+      min-height: 800px;
+    }
+    .preview-frame.desktop {
+      width: 660px;
+    }
+    .preview-frame.mobile {
+      width: 390px;
+      border-radius: 36px;
+      border: 10px solid #1e293b;
+    }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <img src="https://trustcontainer.netlify.app/img/Rectangle%204.png" alt="Trust Container" style="height: 38px; width: auto; display: block;" />
+      <div>
+        <div class="brand-title">TRUST CONTAINER</div>
+        <div class="brand-subtitle">Suite de 8 Correos de Ventas HTML</div>
+      </div>
+    </div>
+    
+    <div class="header-actions">
+      <button class="btn-view-toggle active" id="btnDesktop" onclick="setDevice('desktop')">
+        💻 Vista Desktop (640px)
+      </button>
+      <button class="btn-view-toggle" id="btnMobile" onclick="setDevice('mobile')">
+        📱 Vista Mobile (375px)
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN APPLICATION -->
+  <div class="app-layout">
+    
+    <!-- SIDEBAR WITH THE 8 EMAILS -->
+    <aside class="sidebar">
+      <div class="sidebar-heading">Catálogo de Correos Estratégicos</div>
+
+      <button class="email-item active" onclick="loadEmail(1)">
+        <div class="email-item-header">
+          <span class="email-number">01 • Primer Contacto</span>
+          <span style="font-size:10px; color:#60b5ff;">Cold Outreach</span>
+        </div>
+        <div class="email-item-title">Capacidad, Tránsito y Control FCL</div>
+        <div class="email-item-desc">Presentación ejecutiva a directores de logística. Propuesta de valor, alianzas navieras y prueba sin compromiso.</div>
+      </button>
+
+      <button class="email-item" onclick="loadEmail(2)">
+        <div class="email-item-header">
+          <span class="email-number">02 • Estrategia Financiera</span>
+          <span style="font-size:10px; color:#10b981;">Ahorro de Costos</span>
+        </div>
+        <div class="email-item-title">Migración Inteligente: De CIF a FOB</div>
+        <div class="email-item-desc">Comparativa visual punto por punto. Elimina costos ocultos que impone el proveedor en China y recupera el control.</div>
+      </button>
+
+      <button class="email-item" onclick="loadEmail(3)">
+        <div class="email-item-header">
+          <span class="email-number">03 • Prevención de Riesgos</span>
+          <span style="font-size:10px; color:#60b5ff;">Técnico / Operativo</span>
+        </div>
+        <div class="email-item-title">Blindaje: Demoras y Sobrestadías</div>
+        <div class="email-item-desc">Basado en el flyer oficial. Explicación de Demurrage vs Detention y las 3 soluciones TRUST de mitigación de gastos.</div>
+      </button>
+
+      <button class="email-item" onclick="loadEmail(4)">
+        <div class="email-item-header">
+          <span class="email-number">04 • Carga Consolidada</span>
+          <span style="font-size:10px; color:#2091f9;">Desde $85/CBM</span>
+        </div>
+        <div class="email-item-title">Trust Express: Envíos LCL Door-to-Door</div>
+        <div class="email-item-desc">Para pymes y compras frecuentes desde 1 CBM sin completar un contenedor. Precio visible y alta rotación.</div>
+      </button>
+
+      <button class="email-item" onclick="loadEmail(5)">
+        <div class="email-item-header">
+          <span class="email-number" style="background:#f59e0b; color:#0b1a30;">05 • Alerta Urgente</span>
+          <span class="badge-special">⭐ Flyer Golden Week</span>
+        </div>
+        <div class="email-item-title">Cierre por Golden Week en China</div>
+        <div class="email-item-desc">Aviso oficial del 01 al 07 de octubre. Cronograma de cut-off y llamado comercial para asegurar cupos marítimos antes del paro.</div>
+      </button>
+
+      <button class="email-item" onclick="loadEmail(6)">
+        <div class="email-item-header">
+          <span class="email-number">06 • Guía Educativa</span>
+          <span style="font-size:10px; color:#a855f7;">Lead Nurturing</span>
+        </div>
+        <div class="email-item-title">Cómo Elegir el Contenedor Correcto</div>
+        <div class="email-item-desc">Fichas técnicas de 20' Dry, 40' Dry, 40' High Cube (+12% volumen) y Reefer. Incluye la Regla de Oro de cubicaje.</div>
+      </button>
+
+      <button class="email-item" onclick="loadEmail(7)">
+        <div class="email-item-header">
+          <span class="email-number">07 • Reactivación</span>
+          <span style="font-size:10px; color:#f43f5e;">Follow-Up</span>
+        </div>
+        <div class="email-item-title">Reactivación de Cotizaciones Pendientes</div>
+        <div class="email-item-desc">Seguimiento cálido y empático. Actualización ágil en menos de 2 horas con días libres adicionales en destino.</div>
+      </button>
+
+      <button class="email-item" onclick="loadEmail(8)">
+        <div class="email-item-header">
+          <span class="email-number">08 • Alianza Corporativa</span>
+          <span style="font-size:10px; color:#fbbf24;">C-Level / VIP</span>
+        </div>
+        <div class="email-item-title">Caso de Éxito y Alianza VIP</div>
+        <div class="email-item-desc">Enfoque para directores y cuentas de alto volumen. Métricas de ahorro (-35% tiempos, $0 sobrestadía) y KAM dedicado.</div>
+      </button>
+    </aside>
+
+    <!-- PREVIEW PANEL -->
+    <main class="preview-panel">
+      <!-- TOOLBAR -->
+      <div class="preview-toolbar">
+        <div class="email-meta">
+          <div class="meta-subject" id="metaSubject">
+            <span>Asunto:</span> <strong id="subjectText">Optimiza tus tiempos y fletes marítimos con Trust Container</strong>
+          </div>
+          <div class="meta-preheader" id="preheaderText">
+            Capacidad marítima garantizada, mejores tiempos de tránsito y control total de tus contenedores FCL y LCL.
+          </div>
+        </div>
+
+        <div class="toolbar-buttons">
+          <button class="btn-action" onclick="copyCurrentHtml()">
+            📋 Copiar HTML
+          </button>
+          <a class="btn-action primary" id="btnOpenNewTab" href="01_primer_contacto_b2b.html" target="_blank">
+            ↗ Abrir Archivo
+          </a>
+        </div>
+      </div>
+
+      <!-- IFRAME CONTAINER -->
+      <div class="iframe-wrapper">
+        <iframe id="previewFrame" class="preview-frame desktop" src="01_primer_contacto_b2b.html" frameborder="0"></iframe>
+      </div>
+    </main>
+
+  </div>
+
+  <div class="toast" id="toast">¡Código HTML copiado al portapapeles con éxito!</div>
+
+  <script>
+    const emailsData = [
+      {
+        id: 1,
+        file: '01_primer_contacto_b2b.html',
+        subject: 'Optimiza tus tiempos y fletes marítimos con Trust Container',
+        preheader: 'Capacidad marítima garantizada, mejores tiempos de tránsito y control total de tus contenedores FCL y LCL.'
+      },
+      {
+        id: 2,
+        file: '02_migracion_cif_a_fob.html',
+        subject: '¿Sigues importando en CIF? Podrías estar pagando hasta un 30% más en gastos invisibles',
+        preheader: 'Comprar CIF te hace dependiente del proveedor. Con FOB tú decides la naviera, evitas recargos en destino y aseguras días libres.'
+      },
+      {
+        id: 3,
+        file: '03_evita_demoras_y_sobrestadias.html',
+        subject: 'Sobrestadías y demoras: Cómo blindar tu carga contra gastos portuarios imprevistos',
+        preheader: '¿Sabías que un retraso de 3 días en puerto puede costar miles de dólares? Conoce la diferencia entre Demurrage y Detention.'
+      },
+      {
+        id: 4,
+        file: '04_trust_express_lcl_consolidado.html',
+        subject: '¿Carga consolidada sin dolores de cabeza? Conoce Trust Express desde $85/CBM',
+        preheader: 'Importa desde 1 CBM sin completar un contenedor. Servicio consolidado y Door-to-Door con tarifas transparentes desde $85/CBM.'
+      },
+      {
+        id: 5,
+        file: '05_alerta_golden_week_china.html',
+        subject: '⚠️ [ALERTA LOGÍSTICA] Cierre por Golden Week en China: Asegura tus bookings antes de la suspensión',
+        preheader: 'Operaciones y aduanas suspendidas en China del 01 al 07 de octubre. Conoce el cronograma crítico para asegurar tus espacios marítimos.'
+      },
+      {
+        id: 6,
+        file: '06_guia_elegir_contenedor_correcto.html',
+        subject: 'Guía práctica: ¿Cómo elegir el contenedor correcto y no pagar por aire?',
+        preheader: "20' vs 40' vs High Cube vs Reefer: Aprende a maximizar el cubicaje de tu embarque y evitar pagar por espacio vacío."
+      },
+      {
+        id: 7,
+        file: '07_reactivacion_cotizaciones.html',
+        subject: '¿Aún tienes en pausa ese embarque? Actualicemos tu cotización con tarifa preferencial',
+        preheader: 'Las tarifas marítimas se mueven quincenalmente. Revisemos tu cotización anterior con nuevas condiciones y días libres garantizados.'
+      },
+      {
+        id: 8,
+        file: '08_alianza_estrategica_corporativa.html',
+        subject: 'Cómo las empresas líderes convirtieron su logística marítima en ventaja competitiva',
+        preheader: 'Descubre cómo empresas líderes reducen tiempos muertos y eliminan sobrestadías con el programa de Alianzas Corporativas de Trust.'
+      }
+    ];
+
+    let currentEmailId = 1;
+
+    function loadEmail(id) {
+      currentEmailId = id;
+      const email = emailsData.find(e => e.id === id);
+      if (!email) return;
+
+      // Update sidebar active class
+      const items = document.querySelectorAll('.email-item');
+      items.forEach((item, index) => {
+        if (index + 1 === id) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      // Update header details
+      document.getElementById('subjectText').textContent = email.subject;
+      document.getElementById('preheaderText').textContent = email.preheader;
+      document.getElementById('btnOpenNewTab').href = email.file;
+
+      // Update iframe
+      document.getElementById('previewFrame').src = email.file;
+    }
+
+    function setDevice(device) {
+      const frame = document.getElementById('previewFrame');
+      const btnDesk = document.getElementById('btnDesktop');
+      const btnMob = document.getElementById('btnMobile');
+
+      if (device === 'desktop') {
+        frame.className = 'preview-frame desktop';
+        btnDesk.classList.add('active');
+        btnMob.classList.remove('active');
+      } else {
+        frame.className = 'preview-frame mobile';
+        btnMob.classList.add('active');
+        btnDesk.classList.remove('active');
+      }
+    }
+
+    async function copyCurrentHtml() {
+      const email = emailsData.find(e => e.id === currentEmailId);
+      if (!email) return;
+
+      try {
+        const response = await fetch(email.file);
+        const html = await response.text();
+        await navigator.clipboard.writeText(html);
+        showToast();
+      } catch (err) {
+        alert('Para copiar el código, puedes abrir el archivo ' + email.file + ' y copiarlo directamente.');
+      }
+    }
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

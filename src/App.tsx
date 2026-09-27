@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -8,8 +9,28 @@ import {
   Menu,
   Check
 } from "lucide-react";
+import { TrustFullModal } from "@/components/TrustFullModal";
+import { TrustConsolidadaDoorModal, type ServiceMode } from "@/components/TrustConsolidadaDoorModal";
 
 export default function App() {
+  const [isFullModalOpen, setIsFullModalOpen] = useState(false);
+  const [isConsolidadaDoorModalOpen, setIsConsolidadaDoorModalOpen] = useState(false);
+  const [consolidadaDoorMode, setConsolidadaDoorMode] = useState<ServiceMode>("consolidada");
+
+  // Contact form state
+  const [contactName, setContactName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactMessage, setContactMessage] = useState("");
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!contactName.trim() || !contactEmail.trim() || !contactMessage.trim()) return;
+    const msg = `👋 *NUEVO MENSAJE DE CONTACTO (WEB TRUST CONTAINER)*\n\n• *Nombre:* ${contactName}\n• *Email:* ${contactEmail}\n• *Mensaje:* ${contactMessage}`;
+    window.open(`https://wa.me/584244742482?text=${encodeURIComponent(msg)}`, "_blank");
+    setContactName("");
+    setContactEmail("");
+    setContactMessage("");
+  };
   return (
     <div className="bg-white content-stretch flex flex-col items-center relative w-full overflow-x-hidden min-h-screen">
       
@@ -73,8 +94,8 @@ export default function App() {
             </p>
           </div>
           <div className="mt-8">
-            <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-12 py-8 text-[20px]">
-              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Cotizar Ahora.</a>
+            <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-12 py-8 text-[20px] shadow-lg hover:shadow-xl transition-all">
+              <a href="#cotizaciones">Cotizar Ahora.</a>
             </Button>
           </div>
         </div>
@@ -138,7 +159,7 @@ export default function App() {
             </p>
           </div>
           <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-[35px] px-[40px] py-[16px] h-auto text-[20px] leading-[28px] font-bold self-center md:self-start w-[236px]">
-            <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Ver Servicios</a>
+            <a href="#cotizaciones">Ver Servicios</a>
           </Button>
         </div>
         
@@ -204,7 +225,7 @@ export default function App() {
         
         <div className="mt-[80px]">
           <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-[35px] px-[40px] py-[16px] h-auto text-[20px] font-bold leading-[28px] w-[236px]">
-            <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Cotiza Gratis</a>
+            <a href="#cotizaciones">Cotiza Gratis</a>
           </Button>
         </div>
       </section>
@@ -235,7 +256,7 @@ export default function App() {
       </section>
 
       {/* PRICING */}
-      <section className="flex flex-col items-center w-full py-[100px] md:py-24 px-[28px] md:px-4 bg-[#252b42]">
+      <section id="cotizaciones" className="flex flex-col items-center w-full py-[100px] md:py-24 px-[28px] md:px-4 bg-[#252b42] scroll-mt-10">
         <div className="flex flex-col gap-[7px] text-center mb-[80px]">
           <h2 className="text-[48px] leading-[55px] text-white tracking-[0.2px]">Nuestros Servicios</h2>
           <p className="text-[28px] leading-[40px] text-white tracking-[0.2px] max-w-2xl font-light">
@@ -270,8 +291,14 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <Button asChild className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg">
-              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Solicitar Cotización</a>
+            <Button 
+              onClick={() => {
+                setConsolidadaDoorMode("consolidada");
+                setIsConsolidadaDoorModalOpen(true);
+              }}
+              className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg cursor-pointer"
+            >
+              Solicitar Cotización
             </Button>
           </div>
 
@@ -305,8 +332,11 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <Button asChild className="w-full mt-6 bg-white hover:bg-gray-100 text-[#2091f9] rounded-full py-6 text-lg font-bold">
-              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Solicitar Cotización</a>
+            <Button 
+              onClick={() => setIsFullModalOpen(true)}
+              className="w-full mt-6 bg-white hover:bg-gray-100 text-[#2091f9] rounded-full py-6 text-lg font-bold cursor-pointer shadow-lg"
+            >
+              Solicitar Cotización
             </Button>
           </div>
 
@@ -336,8 +366,14 @@ export default function App() {
                 </div>
               ))}
             </div>
-            <Button asChild className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg">
-              <a href="https://wa.link/nz14jx" target="_blank" rel="noopener noreferrer">Solicitar Cotización</a>
+            <Button 
+              onClick={() => {
+                setConsolidadaDoorMode("door-to-door");
+                setIsConsolidadaDoorModalOpen(true);
+              }}
+              className="w-full mt-6 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg cursor-pointer"
+            >
+              Solicitar Cotización
             </Button>
           </div>
         </div>
@@ -352,18 +388,34 @@ export default function App() {
         
         <div className="flex flex-col md:flex-row gap-16 max-w-6xl mx-auto w-full items-start">
           <div className="w-full md:w-1/2">
-            <div className="bg-white p-10 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col gap-6">
+            <form onSubmit={handleContactSubmit} className="bg-white p-10 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col gap-6">
               <h3 className="text-2xl font-bold text-[#252b42]">Contáctanos</h3>
-              <Input placeholder="Tu nombre" className="rounded-full bg-gray-50 border-gray-200 py-6 px-6 text-lg" />
-              <Input placeholder="Email" type="email" className="rounded-full bg-gray-50 border-gray-200 py-6 px-6 text-lg" />
+              <Input 
+                placeholder="Tu nombre" 
+                required
+                value={contactName}
+                onChange={(e) => setContactName(e.target.value)}
+                className="rounded-full bg-gray-50 border-gray-200 py-6 px-6 text-lg" 
+              />
+              <Input 
+                placeholder="Email" 
+                type="email" 
+                required
+                value={contactEmail}
+                onChange={(e) => setContactEmail(e.target.value)}
+                className="rounded-full bg-gray-50 border-gray-200 py-6 px-6 text-lg" 
+              />
               <textarea 
                 placeholder="Tu mensaje" 
+                required
+                value={contactMessage}
+                onChange={(e) => setContactMessage(e.target.value)}
                 className="w-full min-h-[150px] p-6 rounded-2xl bg-gray-50 border border-gray-200 text-lg outline-none focus:ring-2 focus:ring-[#2091f9]/50"
               />
-              <Button className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-12 py-6 text-lg self-start">
+              <Button type="submit" className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-12 py-6 text-lg self-start cursor-pointer">
                 Enviar
               </Button>
-            </div>
+            </form>
           </div>
           
           <div className="w-full md:w-1/2 flex flex-col gap-10">
@@ -416,6 +468,18 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* QUOTE MODALS */}
+      <TrustFullModal
+        isOpen={isFullModalOpen}
+        onClose={() => setIsFullModalOpen(false)}
+      />
+
+      <TrustConsolidadaDoorModal
+        isOpen={isConsolidadaDoorModalOpen}
+        onClose={() => setIsConsolidadaDoorModalOpen(false)}
+        defaultMode={consolidadaDoorMode}
+      />
     </div>
   );
 }
