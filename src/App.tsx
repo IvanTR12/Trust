@@ -94,8 +94,18 @@ export default function App() {
         
         {/* HEADER / NAVBAR (Transparent & Absolute) */}
         <header className="absolute top-0 w-full h-[78px] md:h-[100px] flex items-center justify-between px-4 md:px-10 z-50">
-          {/* Empty left div to balance flex space-between if needed on desktop */}
-          <div className="flex-1 hidden md:block"></div>
+          {/* Left: Alliance Logos */}
+          <div className="flex-1 hidden md:flex items-center justify-start">
+            <div className="bg-white/90 hover:bg-white backdrop-blur-md px-4 py-2 rounded-full shadow-md border border-white/60 flex items-center gap-3.5 transition-all">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                Alianzas
+              </span>
+              <span className="w-[1px] h-4 bg-slate-200" />
+              <img src="/img/asocav-logo.png" alt="ASOCAV" className="h-5 w-auto object-contain" />
+              <span className="w-[1px] h-4 bg-slate-200" />
+              <img src="/img/logo.webp" alt="GLA Global Logistics Alliance" className="h-5 w-auto object-contain" />
+            </div>
+          </div>
           
           {/* Centered Logo */}
           <div className="flex-1 flex justify-start md:justify-center">
@@ -146,10 +156,33 @@ export default function App() {
               No solo movemos contenedores; movemos oportunidades.
             </p>
           </div>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-col items-center gap-4">
             <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-12 py-8 text-[20px] shadow-lg hover:shadow-xl transition-all">
               <a href="#cotizaciones">Cotizar Ahora.</a>
             </Button>
+            {/* Mobile Alliances Badge */}
+            <div className="flex md:hidden items-center gap-2.5 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-md border border-white/60">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Alianzas:</span>
+              <img src="/img/asocav-logo.png" alt="ASOCAV" className="h-4 w-auto object-contain" />
+              <span className="w-[1px] h-3 bg-slate-200" />
+              <img src="/img/logo.webp" alt="GLA Global Logistics Alliance" className="h-4 w-auto object-contain" />
+            </div>
+          </div>
+        </div>
+
+        {/* Floating Alliance Badge (Bottom Right of Hero) */}
+        <div className="absolute bottom-8 right-6 md:right-12 z-20 hidden sm:block">
+          <div className="bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-xl border border-white/70 flex items-center gap-3.5 hover:shadow-2xl transition-all">
+            <div className="flex flex-col text-left">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                Alianzas Estratégicas
+              </span>
+              <div className="flex items-center gap-3 mt-1.5">
+                <img src="/img/asocav-logo.png" alt="ASOCAV" className="h-6 w-auto object-contain" />
+                <span className="w-[1px] h-4 bg-slate-200" />
+                <img src="/img/logo.webp" alt="GLA Global Logistics Alliance" className="h-6 w-auto object-contain" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
