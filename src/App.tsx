@@ -319,14 +319,26 @@ export default function App() {
         </div>
         
         <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-[30px] md:gap-12 max-w-6xl mx-auto w-full">
-          <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-auto max-w-[275px]">
-            <img src="/img/logos_google.svg" alt="Google" className="h-[63px] object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+          <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-[260px] h-[115px]">
+            <img 
+              src="/img/sura-logo.png" 
+              alt="SURA de Venezuela" 
+              className="max-h-[55px] max-w-[170px] w-auto h-auto object-contain grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300" 
+            />
           </div>
-          <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-auto max-w-[275px]">
-            <img src="/img/Rectangle.png" alt="Amazon" className="h-[58px] object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+          <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-[260px] h-[115px]">
+            <img 
+              src="/img/redvital-logo.png" 
+              alt="Redvital" 
+              className="max-h-[50px] max-w-[170px] w-auto h-auto object-contain grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300" 
+            />
           </div>
-          <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-auto max-w-[275px]">
-            <img src="/img/Rectangle-1.png" alt="Microsoft" className="h-[77px] object-contain grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all" />
+          <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-[260px] h-[115px]">
+            <img 
+              src="/img/valcro-logo.png" 
+              alt="Valcro" 
+              className="max-h-[55px] max-w-[170px] w-auto h-auto object-contain grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300" 
+            />
           </div>
         </div>
         
