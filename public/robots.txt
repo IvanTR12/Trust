@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://trustcontainer.com/sitemap.xml
+Sitemap: https://www.trustcontainer.com/sitemap.xml
