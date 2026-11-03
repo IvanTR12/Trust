@@ -28,8 +28,9 @@ export default function App() {
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!contactName.trim() || !contactEmail.trim() || !contactMessage.trim()) return;
-    const msg = `👋 *NUEVO MENSAJE DE CONTACTO (WEB TRUST CONTAINER)*\n\n• *Nombre:* ${contactName}\n• *Email:* ${contactEmail}\n• *Mensaje:* ${contactMessage}`;
-    window.open(`https://wa.me/584244742482?text=${encodeURIComponent(msg)}`, "_blank");
+    const subject = `Nuevo mensaje de contacto (Web) - ${contactName}`;
+    const body = `Nombre: ${contactName}\nEmail: ${contactEmail}\n\nMensaje:\n${contactMessage}`;
+    window.location.href = `mailto:ventas1@trustcontainer.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setContactName("");
     setContactEmail("");
     setContactMessage("");
@@ -575,7 +576,7 @@ export default function App() {
                 className="w-full min-h-[150px] p-6 rounded-2xl bg-gray-50 border border-gray-200 text-lg outline-none focus:ring-2 focus:ring-[#2091f9]/50"
               />
               <Button type="submit" className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-12 py-6 text-lg self-start cursor-pointer">
-                Enviar por WhatsApp
+                Enviar
               </Button>
             </form>
           </div>
