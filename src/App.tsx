@@ -85,7 +85,7 @@ export default function App() {
         <div 
           className="absolute inset-0 z-0"
           style={{ 
-            backgroundImage: 'url("/img/Rectangle 9.png")', 
+            backgroundImage: 'url("/img/hero.webp")', 
             backgroundSize: 'cover', 
             backgroundPosition: 'center top',
             backgroundRepeat: 'no-repeat'
@@ -227,7 +227,7 @@ export default function App() {
         </div>
         
         <div className="relative w-full max-w-5xl aspect-[16/9] bg-gray-200 rounded-[40px] flex items-center justify-center shadow-2xl overflow-hidden group cursor-pointer">
-          <img src="/img/screen.png" className="absolute inset-0 w-full h-full object-cover" alt="Video Screen" />
+          <img src="/img/screen.webp" className="absolute inset-0 w-full h-full object-cover" alt="Video Screen" />
           <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors z-10" />
           <img src="/img/el_play.svg" className="w-24 h-24 z-20 opacity-90 group-hover:scale-110 transition-transform" alt="Play" />
         </div>
@@ -251,7 +251,7 @@ export default function App() {
         
         <div className="relative w-full max-w-2xl bg-white p-4 rounded-xl shadow-xl">
           <div className="aspect-[16/10] bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center relative">
-             <img src="/img/SCREEN MASK.png" className="absolute inset-0 w-full h-full object-cover" alt="Platform Preview" />
+             <img src="/img/screen-mask.webp" className="absolute inset-0 w-full h-full object-cover" alt="Platform Preview" />
           </div>
         </div>
       </section>
@@ -321,21 +321,21 @@ export default function App() {
         <div className="flex flex-col md:flex-row flex-wrap justify-center items-center gap-[30px] md:gap-12 max-w-6xl mx-auto w-full">
           <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-[260px] h-[115px]">
             <img 
-              src="/img/sura-logo.png" 
+              src="/img/sura-logo.webp" 
               alt="SURA de Venezuela" 
               className="max-h-[55px] max-w-[170px] w-auto h-auto object-contain grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300" 
             />
           </div>
           <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-[260px] h-[115px]">
             <img 
-              src="/img/redvital-logo.png" 
+              src="/img/redvital-logo.webp" 
               alt="Redvital" 
               className="max-h-[50px] max-w-[170px] w-auto h-auto object-contain grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300" 
             />
           </div>
           <div className="border border-[#d8d8d8] py-[25px] px-[40px] flex items-center justify-center w-full md:w-[260px] h-[115px]">
             <img 
-              src="/img/valcro-logo.png" 
+              src="/img/valcro-logo.webp" 
               alt="Valcro" 
               className="max-h-[55px] max-w-[170px] w-auto h-auto object-contain grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all duration-300" 
             />
@@ -355,7 +355,7 @@ export default function App() {
         
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto gap-[44px] mb-[80px]">
           <div className="flex items-center justify-center">
-            <img src="/img/logos_ibm.svg" alt="IBM" className="h-[50px] object-contain grayscale" />
+            <img src="/img/Rectangle 4.png" alt="Trust Container" className="h-[50px] object-contain" />
           </div>
           <p className="text-[13.5px] md:text-[24px] text-[#374754] font-bold leading-[17px] md:leading-relaxed max-w-md">
             "En Trust Container, la logística dejó de ser una preocupación para convertirse en nuestra mayor ventaja competitiva."
@@ -575,7 +575,7 @@ export default function App() {
                 className="w-full min-h-[150px] p-6 rounded-2xl bg-gray-50 border border-gray-200 text-lg outline-none focus:ring-2 focus:ring-[#2091f9]/50"
               />
               <Button type="submit" className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-12 py-6 text-lg self-start cursor-pointer">
-                Enviar
+                Enviar por WhatsApp
               </Button>
             </form>
           </div>
@@ -656,6 +656,19 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* FLOATING WHATSAPP BUTTON */}
+      <a
+        href={`https://wa.me/584244742482?text=${encodeURIComponent("Hola Trust Container, me gustaría recibir información sobre sus servicios.")}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Escríbenos por WhatsApp"
+        className="fixed bottom-5 right-5 md:bottom-8 md:right-8 z-40 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#25D366] hover:bg-[#1ebe5b] shadow-lg hover:shadow-xl hover:scale-110 transition-all flex items-center justify-center"
+      >
+        <svg viewBox="0 0 32 32" className="w-8 h-8 md:w-9 md:h-9 fill-white" aria-hidden="true">
+          <path d="M16.004 3C8.82 3 3 8.82 3 16c0 2.29.6 4.53 1.74 6.5L3 29l6.68-1.75A12.95 12.95 0 0 0 16 29c7.18 0 13-5.82 13-13S23.18 3 16.004 3Zm0 23.63c-1.98 0-3.92-.53-5.62-1.54l-.4-.24-3.96 1.04 1.06-3.86-.26-.4A10.6 10.6 0 0 1 5.37 16c0-5.86 4.77-10.63 10.64-10.63 5.86 0 10.62 4.77 10.62 10.63 0 5.87-4.77 10.63-10.63 10.63Zm5.83-7.96c-.32-.16-1.89-.93-2.18-1.04-.3-.1-.5-.16-.72.16-.21.32-.82 1.04-1.01 1.25-.18.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.18-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.18.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.98-2.37-.26-.62-.52-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.09-1.12 2.66 0 1.57 1.14 3.08 1.3 3.3.16.21 2.25 3.43 5.44 4.81.76.33 1.35.52 1.82.67.76.24 1.46.21 2 .13.61-.09 1.89-.77 2.15-1.52.27-.74.27-1.38.19-1.52-.08-.13-.29-.21-.61-.37Z" />
+        </svg>
+      </a>
 
       {/* QUOTE MODALS */}
       <TrustFullModal
