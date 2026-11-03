@@ -596,16 +596,24 @@ export default function App() {
               </div>
             </div>
             
-            <a
-              href="https://share.google/p1hE0Ey1jQSbAe576"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Ver la ubicación de Trust Container en Google Maps"
-              className="group block w-full h-[300px] bg-gray-200 rounded-3xl overflow-hidden mt-4 relative shadow-md cursor-pointer"
-            >
-               <img src="/img/@ map screen.png" className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" alt="Mapa de ubicación de Trust Container" />
-               <span className="absolute bottom-4 left-4 bg-white/95 text-[#374754] text-sm font-semibold px-4 py-2 rounded-full shadow">Ver en Google Maps</span>
-            </a>
+            <div className="w-full h-[300px] bg-gray-200 rounded-3xl overflow-hidden mt-4 relative shadow-md">
+               <iframe
+                 src="https://www.google.com/maps?q=Centro+Corporativo+La+Vi%C3%B1a+Plaza,+Valencia,+Carabobo,+Venezuela&z=17&output=embed"
+                 title="Ubicación de Trust Container en Google Maps"
+                 className="absolute inset-0 w-full h-full border-0"
+                 loading="lazy"
+                 referrerPolicy="no-referrer-when-downgrade"
+                 allowFullScreen
+               />
+               <a
+                 href="https://share.google/p1hE0Ey1jQSbAe576"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="absolute bottom-4 left-4 bg-white/95 hover:bg-white text-[#374754] hover:text-[#2091f9] text-sm font-semibold px-4 py-2 rounded-full shadow transition-colors"
+               >
+                 Ver en Google Maps
+               </a>
+            </div>
           </div>
         </div>
       </section>
