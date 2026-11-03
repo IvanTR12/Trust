@@ -37,7 +37,7 @@ Para ver todos los correos en tiempo real con selector de dispositivo (Desktop 6
   - `Oro / Ámbar`: `#D4AF37` / `#F59E0B` (Utilizado especialmente en el correo 5 de Golden Week para reflejar el flyer de aviso oficial)
 
 - **Logo Oficial Online**:
-  - URL Utilizada en todos los correos: `https://trustcontainer.netlify.app/img/Rectangle%204.png`
+  - URL Utilizada en todos los correos: `https://trustcontainer.com/img/Rectangle%204.png`
   - Logo blanco original integrado de forma limpia y directa sobre los fondos corporativos navy (`#0B1A30`) y pizarra (`#252B42`), manteniendo una visibilidad y contraste óptimos sin cajas artificiales.
 
 ---

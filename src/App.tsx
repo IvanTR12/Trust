@@ -584,7 +584,7 @@ export default function App() {
             <div className="flex flex-col gap-8">
               <div className="flex items-center gap-4">
                 <img src="/img/bx_bx-map.svg" className="w-8 h-8" alt="" />
-                <span className="text-lg text-[#374754]">C.C. Concepto La Granja, Torre Empresarial, Piso 4, Of. 4-02, Naguanagua, Edo. Carabobo</span>
+                <span className="text-lg text-[#374754]">Centro Corporativo La Viña Plaza, Piso 6, Of. 11, Urb. La Viña, Valencia, Edo. Carabobo</span>
               </div>
               <div className="flex items-center gap-4">
                 <img src="/img/ic_baseline-phone-android.svg" className="w-8 h-8" alt="" />
@@ -596,9 +596,16 @@ export default function App() {
               </div>
             </div>
             
-            <div className="w-full h-[300px] bg-gray-200 rounded-3xl overflow-hidden mt-4 relative shadow-md">
-               <img src="/img/@ map screen.png" className="absolute inset-0 w-full h-full object-cover" alt="Map" />
-            </div>
+            <a
+              href="https://share.google/p1hE0Ey1jQSbAe576"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Ver la ubicación de Trust Container en Google Maps"
+              className="group block w-full h-[300px] bg-gray-200 rounded-3xl overflow-hidden mt-4 relative shadow-md cursor-pointer"
+            >
+               <img src="/img/@ map screen.png" className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" alt="Mapa de ubicación de Trust Container" />
+               <span className="absolute bottom-4 left-4 bg-white/95 text-[#374754] text-sm font-semibold px-4 py-2 rounded-full shadow">Ver en Google Maps</span>
+            </a>
           </div>
         </div>
       </section>
@@ -610,7 +617,7 @@ export default function App() {
           <div className="flex flex-col items-center gap-[20px] text-white w-full">
             <div className="flex items-center gap-[10px]">
               <MapPin className="w-[30px] h-[30px]" />
-              <span className="text-[20px] leading-[28px] font-bold">C.C. Concepto La Granja, Naguanagua, Edo. Carabobo</span>
+              <span className="text-[20px] leading-[28px] font-bold">Centro Corporativo La Viña Plaza, Valencia, Edo. Carabobo</span>
             </div>
             <div className="flex items-center gap-[10px]">
               <Smartphone className="w-[30px] h-[30px]" />
