@@ -10,10 +10,18 @@ import {
   Check,
   Ship,
   Truck,
-  Package
+  Package,
+  Mail
 } from "lucide-react";
 import { TrustFullModal } from "@/components/TrustFullModal";
 import { TrustConsolidadaDoorModal, type ServiceMode } from "@/components/TrustConsolidadaDoorModal";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { t, usesWhatsApp } from "@/i18n";
+import { openEmail, mailtoUrl, WHATSAPP_NUMBER, SALES_EMAIL } from "@/lib/inquiry";
+
+// Ubicación de la oficina (La Viña Plaza, Valencia)
+const OFFICE_LAT = 10.2177781;
+const OFFICE_LNG = -68.0155722;
 
 export default function App() {
   const [isFullModalOpen, setIsFullModalOpen] = useState(false);
@@ -30,7 +38,7 @@ export default function App() {
     if (!contactName.trim() || !contactEmail.trim() || !contactMessage.trim()) return;
     const subject = `Nuevo mensaje de contacto (Web) - ${contactName}`;
     const body = `Nombre: ${contactName}\nEmail: ${contactEmail}\n\nMensaje:\n${contactMessage}`;
-    window.location.href = `mailto:ventas1@trustcontainer.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    openEmail(subject, body);
     setContactName("");
     setContactEmail("");
     setContactMessage("");
@@ -66,11 +74,11 @@ export default function App() {
         });
       }
       setNewsletterStatus("success");
-      setNewsletterMsg("¡Suscripción exitosa! Te hemos enviado un correo de bienvenida.");
+      setNewsletterMsg(t.fob.success);
       setNewsletterEmail("");
     } catch {
       setNewsletterStatus("error");
-      setNewsletterMsg("Hubo un problema al procesar la suscripción. Por favor, intenta de nuevo.");
+      setNewsletterMsg(t.fob.error);
     }
   };
 
@@ -99,7 +107,7 @@ export default function App() {
           <div className="flex-1 hidden md:flex items-center justify-start">
             <div className="bg-white/90 hover:bg-white backdrop-blur-md px-4 py-2 rounded-full shadow-md border border-white/60 flex items-center gap-3.5 transition-all">
               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
-                Alianzas
+                {t.nav.alliances}
               </span>
               <span className="w-[1px] h-4 bg-slate-200" />
               <img src="/img/asocav-logo.png" alt="ASOCAV" className="h-5 w-auto object-contain" />
@@ -114,7 +122,8 @@ export default function App() {
           </div>
 
           {/* Right Menu (Mobile) / Social Icons (Desktop) */}
-          <div className="flex-1 flex justify-end items-center gap-6">
+          <div className="flex-1 flex justify-end items-center gap-3 md:gap-6">
+            <LanguageSwitcher />
             {/* Desktop Socials */}
             <div className="hidden md:flex items-center gap-4">
               <Button asChild variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
@@ -140,7 +149,7 @@ export default function App() {
             </div>
             {/* Mobile Menu */}
             <div className="flex md:hidden">
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 hover:text-white rounded-full">
+              <Button variant="ghost" size="icon" aria-label={t.nav.menu} className="text-white hover:bg-white/20 hover:text-white rounded-full">
                 <Menu className="w-8 h-8" />
               </Button>
             </div>
@@ -151,19 +160,19 @@ export default function App() {
         <div className="relative z-10 flex flex-col items-center pt-[180px] md:pt-[250px] pb-12 gap-[59px] max-w-4xl mx-auto px-4 w-full">
           <div className="flex flex-col gap-[7px] w-full items-center">
             <h1 className="text-[48px] md:text-[74px] font-bold text-white tracking-[0.2px] leading-[55px] md:leading-[84px] text-center w-full md:w-[614px]">
-              El mundo es pequeño cuando tienes el aliado correcto.
+              {t.hero.title}
             </h1>
             <p className="text-[28px] md:text-[28px] text-white font-light text-center leading-[40px] tracking-[0.2px] mt-2 w-full md:w-[614px]">
-              No solo movemos contenedores; movemos oportunidades.
+              {t.hero.subtitle}
             </p>
           </div>
           <div className="mt-8 flex flex-col items-center gap-4">
             <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-12 py-8 text-[20px] shadow-lg hover:shadow-xl transition-all">
-              <a href="#cotizaciones">Cotizar Ahora.</a>
+              <a href="#cotizaciones">{t.hero.cta}</a>
             </Button>
             {/* Mobile Alliances Badge */}
             <div className="flex md:hidden items-center gap-2.5 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-md border border-white/60">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Alianzas:</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{t.nav.alliancesShort}</span>
               <img src="/img/asocav-logo.png" alt="ASOCAV" className="h-4 w-auto object-contain" />
               <span className="w-[1px] h-3 bg-slate-200" />
               <img src="/img/logo.webp" alt="GLA Global Logistics Alliance" className="h-4 w-auto object-contain" />
@@ -176,7 +185,7 @@ export default function App() {
           <div className="bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-2xl shadow-xl border border-white/70 flex items-center gap-3.5 hover:shadow-2xl transition-all">
             <div className="flex flex-col text-left">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                Alianzas Estratégicas
+                {t.nav.strategicAlliances}
               </span>
               <div className="flex items-center gap-3 mt-1.5">
                 <img src="/img/asocav-logo.png" alt="ASOCAV" className="h-6 w-auto object-contain" />
@@ -191,8 +200,8 @@ export default function App() {
       {/* FEATURES SECTION */}
       <section className="flex flex-col items-center w-full py-20 md:py-24 px-5 bg-white">
         <div className="flex flex-col gap-[7px] text-center mb-[75px] w-full">
-          <h2 className="text-[48px] leading-[55px] text-[#252b42] tracking-[0.2px]">Características del Servicio</h2>
-          <p className="text-[28px] leading-[40px] text-[#374754] tracking-[0.2px]">¿Por qué elegirnos como tu partner logístico?</p>
+          <h2 className="text-[48px] leading-[55px] text-[#252b42] tracking-[0.2px]">{t.features.title}</h2>
+          <p className="text-[28px] leading-[40px] text-[#374754] tracking-[0.2px]">{t.features.subtitle}</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-[75px] max-w-6xl mx-auto mb-20">
@@ -200,9 +209,9 @@ export default function App() {
             <div className="mb-2 flex items-center justify-center w-[61px] h-[61px]">
               <img src="/img/mdi_drawing.svg" className="w-full h-full" alt="" />
             </div>
-            <h3 className="text-[20px] leading-[28px] font-bold text-[#252b42]">Alcance Global</h3>
+            <h3 className="text-[20px] leading-[28px] font-bold text-[#252b42]">{t.features.items[0].title}</h3>
             <p className="text-[18px] leading-[25px] text-[#374754]">
-              Llegamos a donde tu negocio necesite estar con transporte multimodal marítimo, aéreo y terrestre.
+              {t.features.items[0].text}
             </p>
           </div>
           
@@ -210,9 +219,9 @@ export default function App() {
             <div className="mb-2 flex items-center justify-center w-[56px] h-[56px]">
               <img src="/img/mdi_draw.svg" className="w-full h-full" alt="" />
             </div>
-            <h3 className="text-[20px] leading-[28px] font-bold text-[#252b42]">Seguridad Total</h3>
+            <h3 className="text-[20px] leading-[28px] font-bold text-[#252b42]">{t.features.items[1].title}</h3>
             <p className="text-[18px] leading-[25px] text-[#374754]">
-              Cuidamos tu carga como si fuera nuestra, ofreciendo seguros a todo riesgo para proteger tu inversión.
+              {t.features.items[1].text}
             </p>
           </div>
           
@@ -220,17 +229,17 @@ export default function App() {
             <div className="mb-2 flex items-center justify-center w-[61px] h-[61px]">
               <img src="/img/mdi_brush.svg" className="w-full h-full" alt="" />
             </div>
-            <h3 className="text-[20px] leading-[28px] font-bold text-[#252b42]">Experiencia Real</h3>
+            <h3 className="text-[20px] leading-[28px] font-bold text-[#252b42]">{t.features.items[2].title}</h3>
             <p className="text-[18px] leading-[25px] text-[#374754]">
-              Soluciones inteligentes para desafíos aduaneros y logísticos complejos diseñadas por expertos.
+              {t.features.items[2].text}
             </p>
           </div>
         </div>
         
         <div className="relative w-full max-w-5xl aspect-[16/9] bg-gray-200 rounded-[40px] flex items-center justify-center shadow-2xl overflow-hidden group cursor-pointer">
-          <img src="/img/screen.webp" className="absolute inset-0 w-full h-full object-cover" alt="Video Screen" />
+          <img src="/img/screen.webp" className="absolute inset-0 w-full h-full object-cover" alt={t.features.videoAlt} />
           <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors z-10" />
-          <img src="/img/el_play.svg" className="w-24 h-24 z-20 opacity-90 group-hover:scale-110 transition-transform" alt="Play" />
+          <img src="/img/el_play.svg" className="w-24 h-24 z-20 opacity-90 group-hover:scale-110 transition-transform" alt={t.features.playAlt} />
         </div>
       </section>
 
@@ -239,20 +248,20 @@ export default function App() {
         <div className="flex flex-col gap-[59px] max-w-lg items-center md:items-start text-center md:text-left w-full">
           <div className="flex flex-col gap-[7px]">
             <h2 className="text-[48px] text-[#252b42] font-normal leading-[55px] tracking-[0.2px]">
-              Trust Express: Eficiencia en envíos LCL
+              {t.express.title}
             </h2>
             <p className="text-[28px] text-[#374754] leading-[40px] tracking-[0.2px] mt-4">
-              La solución perfecta para quienes buscan enviar carga consolidada o servicio Door-to-Door sin necesidad de completar un contenedor.
+              {t.express.text}
             </p>
           </div>
           <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-[35px] px-[40px] py-[16px] h-auto text-[20px] leading-[28px] font-bold self-center md:self-start w-[236px]">
-            <a href="#cotizaciones">Ver Servicios</a>
+            <a href="#cotizaciones">{t.express.cta}</a>
           </Button>
         </div>
         
         <div className="relative w-full max-w-2xl bg-white p-4 rounded-xl shadow-xl">
           <div className="aspect-[16/10] bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center relative">
-             <img src="/img/screen-mask.webp" className="absolute inset-0 w-full h-full object-cover" alt="Platform Preview" />
+             <img src="/img/screen-mask.webp" className="absolute inset-0 w-full h-full object-cover" alt={t.express.previewAlt} />
           </div>
         </div>
       </section>
@@ -267,12 +276,12 @@ export default function App() {
           </div>
         </div>
         <div className="w-full md:w-1/2 flex flex-col gap-[10px] items-center md:items-start text-center md:text-left order-1 md:order-2">
-          <h3 className="text-[20px] font-bold text-[#252b42] leading-[28px] tracking-[0.1px]">Al alcance de tus manos</h3>
+          <h3 className="text-[20px] font-bold text-[#252b42] leading-[28px] tracking-[0.1px]">{t.fob.kicker}</h3>
           <h2 className="text-[48px] text-[#252b42] font-normal leading-[55px] tracking-[0.2px] mb-4">
-            Control total de tu operación con Incoterms FOB
+            {t.fob.title}
           </h2>
           <p className="text-[20px] font-bold text-[#252b42] leading-[28px] tracking-[0.1px]">
-            Te ayudamos a migrar de CIF a FOB para que tú elijas los tiempos
+            {t.fob.text}
           </p>
           
           <form onSubmit={handleNewsletterSubmit} className="flex flex-col gap-3 mt-8 w-full max-w-[353px] md:max-w-lg mx-auto md:mx-0">
@@ -282,7 +291,7 @@ export default function App() {
                 required
                 value={newsletterEmail}
                 onChange={(e) => setNewsletterEmail(e.target.value)}
-                placeholder="Ingresa tu correo empresarial" 
+                placeholder={t.fob.placeholder} 
                 disabled={newsletterStatus === "loading"}
                 className="rounded-[39px] bg-[#f4f4f4] border-[#e8e8e8] py-[19px] px-[35px] text-[14px] h-auto w-full focus:bg-white"
               />
@@ -291,7 +300,7 @@ export default function App() {
                 disabled={newsletterStatus === "loading"}
                 className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-[35px] px-[35px] py-[17px] h-auto text-[18px] md:text-[20px] w-full md:w-auto font-normal cursor-pointer transition-all flex items-center justify-center gap-2"
               >
-                {newsletterStatus === "loading" ? "Enviando..." : "Suscribirse"}
+                {newsletterStatus === "loading" ? t.fob.sending : t.fob.submit}
               </Button>
             </div>
             {newsletterStatus === "success" && (
@@ -313,9 +322,9 @@ export default function App() {
       {/* PARTNERS */}
       <section className="flex flex-col items-center w-full py-[50px] md:py-24 px-[20px] md:px-4 bg-white">
         <div className="flex flex-col gap-[7px] items-center text-center w-full max-w-4xl mb-[80px]">
-          <h2 className="text-[48px] leading-[55px] text-[#252b42] tracking-[0.2px]">Confían en nosotros</h2>
+          <h2 className="text-[48px] leading-[55px] text-[#252b42] tracking-[0.2px]">{t.partners.title}</h2>
           <p className="text-[28px] leading-[40px] text-[#374754] tracking-[0.2px]">
-            En Trust Container, nuestra mayor preocupación siempre es la comodidad de nuestros clientes
+            {t.partners.text}
           </p>
         </div>
         
@@ -345,42 +354,42 @@ export default function App() {
         
         <div className="mt-[80px]">
           <Button asChild className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-[35px] px-[40px] py-[16px] h-auto text-[20px] font-bold leading-[28px] w-[236px]">
-            <a href="#cotizaciones">Cotiza Gratis</a>
+            <a href="#cotizaciones">{t.partners.cta}</a>
           </Button>
         </div>
       </section>
 
       {/* TESTIMONIALS */}
       <section className="flex flex-col items-center w-full py-[100px] md:py-24 px-5 bg-gray-50 border-t border-b border-gray-200">
-        <h2 className="text-[48px] leading-[55px] text-[#252b42] tracking-[0.2px] text-center mb-[80px]">Testimonios</h2>
+        <h2 className="text-[48px] leading-[55px] text-[#252b42] tracking-[0.2px] text-center mb-[80px]">{t.testimonials.title}</h2>
         
         <div className="flex flex-col items-center text-center max-w-4xl mx-auto gap-[44px] mb-[80px]">
           <div className="flex items-center justify-center">
             <img src="/img/Rectangle 4.png" alt="Trust Container" className="h-[50px] object-contain" />
           </div>
           <p className="text-[13.5px] md:text-[24px] text-[#374754] font-bold leading-[17px] md:leading-relaxed max-w-md">
-            "En Trust Container, la logística dejó de ser una preocupación para convertirse en nuestra mayor ventaja competitiva."
+            {t.testimonials.quote}
           </p>
           <div className="flex items-center gap-[11px]">
             <img src="/img/Ellipse 2.png" className="w-[42px] h-[42px] rounded-full object-cover" alt="Avatar" />
             <div className="flex flex-col items-start">
               <span className="text-[10px] md:text-sm font-bold text-[#374754] leading-[15px]">Héctor Vásquez</span>
-              <span className="text-[12.5px] md:text-sm text-[#252b42] font-normal leading-[23px]">Director General y Comercial</span>
+              <span className="text-[12.5px] md:text-sm text-[#252b42] font-normal leading-[23px]">{t.testimonials.role}</span>
             </div>
           </div>
         </div>
         
         <Button className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-[35px] px-[47px] py-[16px] h-auto text-[20px] font-bold leading-[28px]">
-          Más Testimonios
+          {t.testimonials.more}
         </Button>
       </section>
 
       {/* PRICING */}
       <section id="cotizaciones" className="flex flex-col items-center w-full py-[100px] md:py-24 px-4 sm:px-6 md:px-8 bg-[#252b42] scroll-mt-10">
         <div className="flex flex-col gap-[7px] text-center mb-[50px] md:mb-[70px]">
-          <h2 className="text-[36px] md:text-[48px] leading-[44px] md:leading-[55px] text-white tracking-[0.2px] font-bold">Nuestros Servicios</h2>
+          <h2 className="text-[36px] md:text-[48px] leading-[44px] md:leading-[55px] text-white tracking-[0.2px] font-bold">{t.pricing.title}</h2>
           <p className="text-[18px] md:text-[24px] leading-[28px] md:leading-[36px] text-white/80 tracking-[0.2px] max-w-2xl font-light">
-            Soluciones logísticas adaptadas a cada necesidad. Desde carga consolidada hasta operaciones puerta a puerta.
+            {t.pricing.text}
           </p>
         </div>
         
@@ -393,17 +402,17 @@ export default function App() {
               <div className="flex-1">
                 <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md text-white text-xs md:text-sm font-bold px-3.5 py-1.5 rounded-full mb-3">
                   <Ship className="w-4 h-4" />
-                  <span>Más Popular • FCL</span>
+                  <span>{t.pricing.fcl.badge}</span>
                 </div>
                 <span className="block text-xs md:text-sm font-semibold text-white/80 uppercase tracking-widest">
-                  Contenedor Completo
+                  {t.pricing.fcl.kicker}
                 </span>
                 <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mt-1 mb-3">
                   Trust Full Container Loaded (FCL)
                 </h3>
                 <div className="inline-flex items-center gap-2 bg-white/15 border border-white/25 rounded-xl px-4 py-2 my-1">
                   <span className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight">
-                    Desde cualquier origen
+                    {t.pricing.fcl.highlight}
                   </span>
                 </div>
               </div>
@@ -413,7 +422,7 @@ export default function App() {
                   onClick={() => setIsFullModalOpen(true)}
                   className="w-full bg-white hover:bg-slate-100 text-[#2091f9] hover:text-[#1778d0] rounded-full py-6 text-lg font-bold cursor-pointer shadow-xl hover:shadow-2xl transition-all"
                 >
-                  Solicitar Cotización
+                  {t.pricing.requestQuote}
                 </Button>
               </div>
             </div>
@@ -422,14 +431,7 @@ export default function App() {
 
             {/* FCL Features */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full relative z-10">
-              {[
-                'FCL 20\' y 40\' a cualquier destino',
-                'Negociación directa con navieras',
-                'Gestión aduanera completa',
-                'Seguro a todo riesgo',
-                'Migración de CIF a FOB',
-                'Asesor logístico dedicado',
-              ].map((item, i) => (
+              {t.pricing.fcl.features.map((item, i) => (
                 <div key={i} className="flex items-start gap-3 text-white text-sm md:text-base">
                   <Check className="w-5 h-5 text-white mt-0.5 flex-shrink-0" />
                   <span>{item}</span>
@@ -445,7 +447,7 @@ export default function App() {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-semibold text-[#2091f9] uppercase tracking-wider">
-                    Door-to-Door
+                    {t.pricing.premium.kicker}
                   </span>
                   <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#2091f9]">
                     <Truck className="w-5 h-5" />
@@ -455,22 +457,15 @@ export default function App() {
                 
                 <div className="mt-4 mb-6">
                   <span className="text-3xl md:text-4xl font-extrabold text-[#252b42] block">
-                    A su medida
+                    {t.pricing.premium.price}
                   </span>
-                  <span className="text-xs text-slate-500 font-medium">Servicio integral personalizado</span>
+                  <span className="text-xs text-slate-500 font-medium">{t.pricing.premium.priceNote}</span>
                 </div>
 
                 <div className="w-full h-[1px] bg-gray-200 mb-6" />
 
                 <div className="flex flex-col gap-3 w-full">
-                  {[
-                    'Servicio puerta a puerta',
-                    'Transporte multimodal integral',
-                    'Desaduanamiento en destino',
-                    'Almacenaje y distribución',
-                    'Seguro premium todo riesgo',
-                    'Soporte 24/7 dedicado',
-                  ].map((item, i) => (
+                  {t.pricing.premium.features.map((item, i) => (
                     <div key={i} className="flex items-start gap-3 text-[#252b42] text-sm md:text-base">
                       <Check className="w-5 h-5 text-[#2091f9] mt-0.5 flex-shrink-0" />
                       <span>{item}</span>
@@ -486,7 +481,7 @@ export default function App() {
                 }}
                 className="w-full mt-4 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg font-bold cursor-pointer shadow-md hover:shadow-lg transition-all"
               >
-                Solicitar Cotización
+                {t.pricing.requestQuote}
               </Button>
             </div>
 
@@ -495,7 +490,7 @@ export default function App() {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-semibold text-[#2091f9] uppercase tracking-wider">
-                    Carga Consolidada
+                    {t.pricing.express.kicker}
                   </span>
                   <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#2091f9]">
                     <Package className="w-5 h-5" />
@@ -505,21 +500,15 @@ export default function App() {
                 
                 <div className="mt-4 mb-6">
                   <span className="text-3xl md:text-4xl font-extrabold text-[#252b42] block">
-                    Según Origen
+                    {t.pricing.express.price}
                   </span>
-                  <span className="text-xs text-slate-500 font-medium">Tarifa optimizada por ruta y volumen</span>
+                  <span className="text-xs text-slate-500 font-medium">{t.pricing.express.priceNote}</span>
                 </div>
 
                 <div className="w-full h-[1px] bg-gray-200 mb-6" />
 
                 <div className="flex flex-col gap-3 w-full">
-                  {[
-                    'Envíos LCL desde cualquier origen',
-                    'Consolidación de carga',
-                    'Seguimiento en tiempo real',
-                    'Seguro básico incluido',
-                    'Asesoría documental',
-                  ].map((item, i) => (
+                  {t.pricing.express.features.map((item, i) => (
                     <div key={i} className="flex items-start gap-3 text-[#252b42] text-sm md:text-base">
                       <Check className="w-5 h-5 text-[#2091f9] mt-0.5 flex-shrink-0" />
                       <span>{item}</span>
@@ -535,7 +524,7 @@ export default function App() {
                 }}
                 className="w-full mt-4 bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-6 text-lg font-bold cursor-pointer shadow-md hover:shadow-lg transition-all"
               >
-                Solicitar Cotización
+                {t.pricing.requestQuote}
               </Button>
             </div>
           </div>
@@ -545,23 +534,23 @@ export default function App() {
       {/* CONTACT */}
       <section className="flex flex-col items-center w-full py-[100px] md:py-24 px-5 md:px-4 bg-white border-t border-gray-100">
         <div className="flex flex-col gap-[7px] text-center mb-[80px]">
-          <h2 className="text-[48px] leading-[55px] text-[#252b42] tracking-[0.2px] max-w-xl mx-auto">¿Listo para importar sin estrés?</h2>
-          <p className="text-[28px] leading-[40px] text-[#374754] tracking-[0.2px] max-w-2xl mx-auto">Queremos conocer tu proyecto y diseñarte la ruta más eficiente.</p>
+          <h2 className="text-[48px] leading-[55px] text-[#252b42] tracking-[0.2px] max-w-xl mx-auto">{t.contact.title}</h2>
+          <p className="text-[28px] leading-[40px] text-[#374754] tracking-[0.2px] max-w-2xl mx-auto">{t.contact.text}</p>
         </div>
         
         <div className="flex flex-col md:flex-row gap-16 max-w-6xl mx-auto w-full items-start">
           <div className="w-full md:w-1/2">
             <form onSubmit={handleContactSubmit} className="bg-white p-10 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100 flex flex-col gap-6">
-              <h3 className="text-2xl font-bold text-[#252b42]">Contáctanos</h3>
+              <h3 className="text-2xl font-bold text-[#252b42]">{t.contact.formTitle}</h3>
               <Input 
-                placeholder="Tu nombre" 
+                placeholder={t.contact.name} 
                 required
                 value={contactName}
                 onChange={(e) => setContactName(e.target.value)}
                 className="rounded-full bg-gray-50 border-gray-200 py-6 px-6 text-lg" 
               />
               <Input 
-                placeholder="Email" 
+                placeholder={t.contact.email} 
                 type="email" 
                 required
                 value={contactEmail}
@@ -569,14 +558,14 @@ export default function App() {
                 className="rounded-full bg-gray-50 border-gray-200 py-6 px-6 text-lg" 
               />
               <textarea 
-                placeholder="Tu mensaje" 
+                placeholder={t.contact.message} 
                 required
                 value={contactMessage}
                 onChange={(e) => setContactMessage(e.target.value)}
                 className="w-full min-h-[150px] p-6 rounded-2xl bg-gray-50 border border-gray-200 text-lg outline-none focus:ring-2 focus:ring-[#2091f9]/50"
               />
               <Button type="submit" className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full px-12 py-6 text-lg self-start cursor-pointer">
-                Enviar
+                {t.contact.submit}
               </Button>
             </form>
           </div>
@@ -585,34 +574,38 @@ export default function App() {
             <div className="flex flex-col gap-8">
               <div className="flex items-center gap-4">
                 <img src="/img/bx_bx-map.svg" className="w-8 h-8" alt="" />
-                <span className="text-lg text-[#374754]">Centro Corporativo La Viña Plaza, Piso 6, Of. 11, Urb. La Viña, Valencia, Edo. Carabobo</span>
+                <span className="text-lg text-[#374754]">{t.contact.address}</span>
               </div>
               <div className="flex items-center gap-4">
                 <img src="/img/ic_baseline-phone-android.svg" className="w-8 h-8" alt="" />
-                <a href="https://wa.me/584244742482" target="_blank" rel="noopener noreferrer" className="text-lg text-[#374754] hover:text-[#2091f9] transition-colors">+58 424-4742482</a>
+                <a href={usesWhatsApp ? `https://wa.me/${WHATSAPP_NUMBER}` : "tel:+584244742482"} target={usesWhatsApp ? "_blank" : undefined} rel="noopener noreferrer" className="text-lg text-[#374754] hover:text-[#2091f9] transition-colors">+58 424-4742482</a>
               </div>
               <div className="flex items-center gap-4">
                 <img src="/img/ant-design_mail-outlined.svg" className="w-8 h-8" alt="" />
-                <a href="mailto:ventas1@trustcontainer.com" className="text-lg text-[#374754] hover:text-[#2091f9] transition-colors">ventas1@trustcontainer.com</a>
+                <a href={`mailto:${SALES_EMAIL}`} className="text-lg text-[#374754] hover:text-[#2091f9] transition-colors">{SALES_EMAIL}</a>
               </div>
             </div>
             
             <div className="w-full h-[300px] bg-gray-200 rounded-3xl overflow-hidden mt-4 relative shadow-md">
                <iframe
-                 src="https://www.google.com/maps?q=Centro+Corporativo+La+Vi%C3%B1a+Plaza,+Valencia,+Carabobo,+Venezuela&z=17&output=embed"
-                 title="Ubicación de Trust Container en Google Maps"
+                 src={usesWhatsApp
+                   ? "https://www.google.com/maps?q=Centro+Corporativo+La+Vi%C3%B1a+Plaza,+Valencia,+Carabobo,+Venezuela&z=17&output=embed"
+                   : `https://www.openstreetmap.org/export/embed.html?bbox=${OFFICE_LNG - 0.004}%2C${OFFICE_LAT - 0.003}%2C${OFFICE_LNG + 0.004}%2C${OFFICE_LAT + 0.003}&layer=mapnik&marker=${OFFICE_LAT}%2C${OFFICE_LNG}`}
+                 title={t.contact.mapTitle}
                  className="absolute inset-0 w-full h-full border-0"
                  loading="lazy"
                  referrerPolicy="no-referrer-when-downgrade"
                  allowFullScreen
                />
                <a
-                 href="https://share.google/p1hE0Ey1jQSbAe576"
+                 href={usesWhatsApp
+                   ? "https://share.google/p1hE0Ey1jQSbAe576"
+                   : `https://www.openstreetmap.org/?mlat=${OFFICE_LAT}&mlon=${OFFICE_LNG}#map=17/${OFFICE_LAT}/${OFFICE_LNG}`}
                  target="_blank"
                  rel="noopener noreferrer"
                  className="absolute bottom-4 left-4 bg-white/95 hover:bg-white text-[#374754] hover:text-[#2091f9] text-sm font-semibold px-4 py-2 rounded-full shadow transition-colors"
                >
-                 Ver en Google Maps
+                 {t.contact.viewMap}
                </a>
             </div>
           </div>
@@ -626,7 +619,7 @@ export default function App() {
           <div className="flex flex-col items-center gap-[20px] text-white w-full">
             <div className="flex items-center gap-[10px]">
               <MapPin className="w-[30px] h-[30px]" />
-              <span className="text-[20px] leading-[28px] font-bold">Centro Corporativo La Viña Plaza, Valencia, Edo. Carabobo</span>
+              <span className="text-[20px] leading-[28px] font-bold">{t.contact.footerAddress}</span>
             </div>
             <div className="flex items-center gap-[10px]">
               <Smartphone className="w-[30px] h-[30px]" />
@@ -658,18 +651,28 @@ export default function App() {
         </div>
       </footer>
 
-      {/* FLOATING WHATSAPP BUTTON */}
+      {/* FLOATING CONTACT BUTTON: WhatsApp (es/en) / email (zh, WhatsApp bloqueado en China) */}
+      {usesWhatsApp ? (
       <a
-        href={`https://wa.me/584244742482?text=${encodeURIComponent("Hola Trust Container, me gustaría recibir información sobre sus servicios.")}`}
+        href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.floating.whatsappText)}`}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Escríbenos por WhatsApp"
+        aria-label={t.floating.whatsappAria}
         className="fixed bottom-5 right-5 md:bottom-8 md:right-8 z-40 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#25D366] hover:bg-[#1ebe5b] shadow-lg hover:shadow-xl hover:scale-110 transition-all flex items-center justify-center"
       >
         <svg viewBox="0 0 32 32" className="w-8 h-8 md:w-9 md:h-9 fill-white" aria-hidden="true">
           <path d="M16.004 3C8.82 3 3 8.82 3 16c0 2.29.6 4.53 1.74 6.5L3 29l6.68-1.75A12.95 12.95 0 0 0 16 29c7.18 0 13-5.82 13-13S23.18 3 16.004 3Zm0 23.63c-1.98 0-3.92-.53-5.62-1.54l-.4-.24-3.96 1.04 1.06-3.86-.26-.4A10.6 10.6 0 0 1 5.37 16c0-5.86 4.77-10.63 10.64-10.63 5.86 0 10.62 4.77 10.62 10.63 0 5.87-4.77 10.63-10.63 10.63Zm5.83-7.96c-.32-.16-1.89-.93-2.18-1.04-.3-.1-.5-.16-.72.16-.21.32-.82 1.04-1.01 1.25-.18.21-.37.24-.69.08-.32-.16-1.35-.5-2.57-1.59-.95-.85-1.59-1.9-1.78-2.22-.18-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.18.21-.32.32-.53.1-.21.05-.4-.03-.56-.08-.16-.72-1.73-.98-2.37-.26-.62-.52-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.09-1.12 2.66 0 1.57 1.14 3.08 1.3 3.3.16.21 2.25 3.43 5.44 4.81.76.33 1.35.52 1.82.67.76.24 1.46.21 2 .13.61-.09 1.89-.77 2.15-1.52.27-.74.27-1.38.19-1.52-.08-.13-.29-.21-.61-.37Z" />
         </svg>
       </a>
+      ) : (
+      <a
+        href={mailtoUrl("Consulta desde la web (中文)", t.floating.whatsappText)}
+        aria-label={t.floating.emailAria}
+        className="fixed bottom-5 right-5 md:bottom-8 md:right-8 z-40 w-14 h-14 md:w-16 md:h-16 rounded-full bg-[#2091f9] hover:bg-blue-600 shadow-lg hover:shadow-xl hover:scale-110 transition-all flex items-center justify-center"
+      >
+        <Mail className="w-7 h-7 md:w-8 md:h-8 text-white" aria-hidden="true" />
+      </a>
+      )}
 
       {/* QUOTE MODALS */}
       <TrustFullModal

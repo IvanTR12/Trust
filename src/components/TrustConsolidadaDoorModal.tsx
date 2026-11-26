@@ -19,6 +19,8 @@ import {
   Truck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { t, usesWhatsApp } from "@/i18n";
+import { sendInquiry } from "@/lib/inquiry";
 
 export type ServiceMode = "consolidada" | "door-to-door";
 
@@ -33,6 +35,8 @@ export function TrustConsolidadaDoorModal({
   onClose, 
   defaultMode = "consolidada" 
 }: TrustConsolidadaDoorModalProps) {
+  const m = t.modal;
+  const l = t.modal.lcl;
   // Info Personal
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
@@ -91,11 +95,11 @@ export function TrustConsolidadaDoorModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!nombre.trim() || !apellido.trim() || !correo.trim() || !numero.trim()) {
-      setErrorMsg("Por favor, completa los campos de información personal obligatorios.");
+      setErrorMsg(l.errorPersonal);
       return;
     }
     if (!volumen.trim() || !peso.trim() || !valorFob.trim()) {
-      setErrorMsg("Por favor, indica el Valor FOB, Volumen y Peso estimado.");
+      setErrorMsg(l.errorCargo);
       return;
     }
 
@@ -129,10 +133,11 @@ ${notas.trim() ? `\n📝 *Detalles adicionales:* ${notas}` : ""}
 
 _Enviado desde el formulario web de Trust Container._`;
 
-    const encoded = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/584244742482?text=${encoded}`;
-
-    window.open(whatsappUrl, "_blank");
+    // WhatsApp (es/en) o email (zh)
+    sendInquiry(
+      `Solicitud de cotización ${tipoModalidad === "DoorToDoor" ? "Door-to-Door" : "LCL"} - ${nombre} ${apellido}`,
+      message
+    );
     setIsSubmitted(true);
   };
 
@@ -142,6 +147,9 @@ _Enviado desde el formulario web de Trust Container._`;
   };
 
   const isDoor = tipoModalidad === "DoorToDoor";
+  const serviceName = isDoor ? l.serviceDoor : l.serviceLcl;
+  const transportName = tipoTransporte === "Marítimo" ? l.sea : l.air;
+  const packingLabel = l.packingTypes.find((o) => o.value === packing)?.label ?? packing;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto">
@@ -163,23 +171,23 @@ _Enviado desde el formulario web de Trust Container._`;
               </div>
               <div>
                 <span className="text-xs font-semibold uppercase tracking-wider text-blue-100 bg-white/15 px-2.5 py-0.5 rounded-full inline-block mb-1">
-                  {isDoor ? "Trust Premium • Door to Door" : "Trust Express • Carga Consolidada LCL"}
+                  {isDoor ? l.badgeDoor : l.badgeLcl}
                 </span>
                 <h3 className="text-2xl font-bold text-white leading-tight">
-                  {isDoor ? "Servicio Door-to-Door" : "Carga Consolidada (LCL)"}
+                  {isDoor ? l.titleDoor : l.titleLcl}
                 </h3>
               </div>
             </div>
             <button
               onClick={onClose}
               className="text-white/80 hover:text-white bg-black/10 hover:bg-black/25 rounded-full p-2 transition-colors"
-              aria-label="Cerrar"
+              aria-label={m.close}
             >
               <X className="w-5 h-5" />
             </button>
           </div>
           <p className="text-sm text-blue-100 mt-2 font-light">
-            Indícanos los datos de empaque, peso y medidas para calcular tu tarifa óptima al instante.
+            {l.intro}
           </p>
         </div>
 
@@ -191,20 +199,20 @@ _Enviado desde el formulario web de Trust Container._`;
                 <CheckCircle2 className="w-10 h-10" />
               </div>
               <h4 className="text-2xl font-bold text-[#252b42] mb-2">
-                ¡Solicitud de Cotización Lista!
+                {l.successTitle}
               </h4>
               <p className="text-slate-600 max-w-md mb-6 text-sm">
-                Tu cotización para <strong>{isDoor ? "Door-to-Door" : "Carga Consolidada"}</strong> ha sido enviada al equipo comercial vía WhatsApp para atención prioritaria.
+                {usesWhatsApp ? l.successWhatsApp(serviceName) : l.successEmail(serviceName)}
               </p>
 
               {/* Summary Box */}
               <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 w-full text-left text-xs sm:text-sm text-slate-700 space-y-2 mb-6">
-                <div><span className="font-semibold text-slate-900">Cliente:</span> {nombre} {apellido} {empresa ? `(${empresa})` : ""}</div>
-                <div><span className="font-semibold text-slate-900">Modalidad:</span> {tipoModalidad === "DoorToDoor" ? "Door to Door" : "Regular"} | {tipoTransporte}</div>
-                <div><span className="font-semibold text-slate-900">Packing:</span> {packing} {packingDetalle ? `(${packingDetalle})` : ""}</div>
-                <div><span className="font-semibold text-slate-900">Valor FOB:</span> ${valorFob} USD</div>
-                <div><span className="font-semibold text-slate-900">Volumen / Peso:</span> {volumen} CBM / {peso} {unidadPeso}</div>
-                <div><span className="font-semibold text-slate-900">Ruta:</span> {origen || "N/A"} ➔ {destino || "N/A"}</div>
+                <div><span className="font-semibold text-slate-900">{m.summaryClient}</span> {nombre} {apellido} {empresa ? `(${empresa})` : ""}</div>
+                <div><span className="font-semibold text-slate-900">{l.summaryMode}</span> {isDoor ? l.modeDoor : l.modeRegular} | {transportName}</div>
+                <div><span className="font-semibold text-slate-900">{l.summaryPacking}</span> {packingLabel} {packingDetalle ? `(${packingDetalle})` : ""}</div>
+                <div><span className="font-semibold text-slate-900">{l.summaryFob}</span> ${valorFob} USD</div>
+                <div><span className="font-semibold text-slate-900">{l.summaryVolWeight}</span> {volumen} CBM / {peso} {unidadPeso}</div>
+                <div><span className="font-semibold text-slate-900">{m.summaryRoute}</span> {origen || m.notSpecified} ➔ {destino || m.notSpecified}</div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 w-full justify-center">
@@ -213,14 +221,14 @@ _Enviado desde el formulario web de Trust Container._`;
                   className="bg-[#2091f9] hover:bg-blue-600 text-white rounded-full py-5 px-6 font-semibold flex items-center justify-center gap-2"
                 >
                   <Send className="w-4 h-4" />
-                  Abrir WhatsApp nuevamente
+                  {usesWhatsApp ? m.reopenWhatsApp : m.reopenEmail}
                 </Button>
                 <Button 
                   variant="outline"
                   onClick={handleReset} 
                   className="rounded-full py-5 px-6"
                 >
-                  Cerrar
+                  {m.close}
                 </Button>
               </div>
             </div>
@@ -235,7 +243,7 @@ _Enviado desde el formulario web de Trust Container._`;
               {/* Toggle 1: Modalidad (Regular vs DoorToDoor) */}
               <div>
                 <label className="block text-xs font-bold text-[#252b42] uppercase tracking-wider mb-2">
-                  Tipo de Modalidad <span className="text-red-500">*</span>
+                  {l.modeLabel} <span className="text-red-500">*</span>
                 </label>
                 <div className="grid grid-cols-2 gap-3">
                   <button
@@ -248,7 +256,7 @@ _Enviado desde el formulario web de Trust Container._`;
                     }`}
                   >
                     <Package className="w-4 h-4" />
-                    <span>Regular (LCL)</span>
+                    <span>{l.modeRegular}</span>
                   </button>
 
                   <button
@@ -261,7 +269,7 @@ _Enviado desde el formulario web de Trust Container._`;
                     }`}
                   >
                     <Truck className="w-4 h-4" />
-                    <span>Door to Door</span>
+                    <span>{l.modeDoor}</span>
                   </button>
                 </div>
               </div>
@@ -269,7 +277,7 @@ _Enviado desde el formulario web de Trust Container._`;
               {/* Toggle 2: Tipo Marítimo vs Aéreo */}
               <div>
                 <label className="block text-xs font-bold text-[#252b42] uppercase tracking-wider mb-2">
-                  Tipo de Transporte (Marítimo o Aéreo) <span className="text-red-500">*</span>
+                  {l.transportLabel} <span className="text-red-500">*</span>
                 </label>
                 <div className="grid grid-cols-2 gap-3">
                   <button
@@ -282,7 +290,7 @@ _Enviado desde el formulario web de Trust Container._`;
                     }`}
                   >
                     <Ship className="w-4 h-4 text-sky-400" />
-                    <span>Marítimo</span>
+                    <span>{l.sea}</span>
                   </button>
 
                   <button
@@ -295,7 +303,7 @@ _Enviado desde el formulario web de Trust Container._`;
                     }`}
                   >
                     <Plane className="w-4 h-4 text-sky-400" />
-                    <span>Aéreo</span>
+                    <span>{l.air}</span>
                   </button>
                 </div>
               </div>
@@ -304,17 +312,17 @@ _Enviado desde el formulario web de Trust Container._`;
               <div>
                 <div className="flex items-center gap-2 text-sm font-bold text-[#252b42] uppercase tracking-wider mb-3">
                   <User className="w-4 h-4 text-[#2091f9]" />
-                  <span>1. Info Personal</span>
+                  <span>{l.section1}</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Nombre <span className="text-red-500">*</span>
+                      {m.firstName} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       required
-                      placeholder="Ej. Ana"
+                      placeholder={l.firstNamePh}
                       value={nombre}
                       onChange={(e) => setNombre(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition"
@@ -323,12 +331,12 @@ _Enviado desde el formulario web de Trust Container._`;
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Apellido <span className="text-red-500">*</span>
+                      {m.lastName} <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       required
-                      placeholder="Ej. García"
+                      placeholder={l.lastNamePh}
                       value={apellido}
                       onChange={(e) => setApellido(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition"
@@ -337,14 +345,14 @@ _Enviado desde el formulario web de Trust Container._`;
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Correo Electrónico <span className="text-red-500">*</span>
+                      {m.email} <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                       <input
                         type="email"
                         required
-                        placeholder="tu@empresa.com"
+                        placeholder={m.emailPh}
                         value={correo}
                         onChange={(e) => setCorreo(e.target.value)}
                         className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition"
@@ -354,14 +362,14 @@ _Enviado desde el formulario web de Trust Container._`;
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Número / WhatsApp <span className="text-red-500">*</span>
+                      {l.phone} <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <Phone className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                       <input
                         type="tel"
                         required
-                        placeholder="Ej. +58 414 1234567"
+                        placeholder={l.phonePh}
                         value={numero}
                         onChange={(e) => setNumero(e.target.value)}
                         className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition"
@@ -371,13 +379,13 @@ _Enviado desde el formulario web de Trust Container._`;
 
                   <div className="sm:col-span-2">
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Empresa
+                      {m.company}
                     </label>
                     <div className="relative">
                       <Building2 className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
                       <input
                         type="text"
-                        placeholder="Nombre de tu empresa o razón social"
+                        placeholder={l.companyPh}
                         value={empresa}
                         onChange={(e) => setEmpresa(e.target.value)}
                         className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition"
@@ -391,37 +399,32 @@ _Enviado desde el formulario web de Trust Container._`;
               <div>
                 <div className="flex items-center gap-2 text-sm font-bold text-[#252b42] uppercase tracking-wider mb-3">
                   <Box className="w-4 h-4 text-[#2091f9]" />
-                  <span>2. Packing y Medidas de la Carga</span>
+                  <span>{l.section2}</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {/* Packing */}
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Packing (Tipo de Empaque) <span className="text-red-500">*</span>
+                      {l.packingLabel} <span className="text-red-500">*</span>
                     </label>
                     <select
                       value={packing}
                       onChange={(e) => setPacking(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition cursor-pointer"
                     >
-                      <option value="Paletas / Pallets">Paletas / Pallets</option>
-                      <option value="Cajas de Cartón">Cajas de Cartón</option>
-                      <option value="Huacales de Madera / Crates">Huacales de Madera (Crates)</option>
-                      <option value="Tambores / Barriles">Tambores / Barriles</option>
-                      <option value="Sacos / Big Bags">Sacos / Big Bags</option>
-                      <option value="Bultos Sueltos">Bultos Sueltos</option>
-                      <option value="Maquinaria Embalada">Maquinaria Embalada</option>
-                      <option value="Otro tipo de empaque">Otro tipo de empaque</option>
+                      {l.packingTypes.map((o) => (
+                        <option key={o.value} value={o.value}>{o.label}</option>
+                      ))}
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Detalle de bultos / piezas (Opcional)
+                      {l.packingDetail}
                     </label>
                     <input
                       type="text"
-                      placeholder="Ej. 4 paletas (120x100x160cm)"
+                      placeholder={l.packingDetailPh}
                       value={packingDetalle}
                       onChange={(e) => setPackingDetalle(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition"
@@ -431,7 +434,7 @@ _Enviado desde el formulario web de Trust Container._`;
                   {/* Valor FOB */}
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Valor FOB (USD $) <span className="text-red-500">*</span>
+                      {l.fobLabel} <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <DollarSign className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -440,7 +443,7 @@ _Enviado desde el formulario web de Trust Container._`;
                         min="1"
                         step="any"
                         required
-                        placeholder="Ej. 4500"
+                        placeholder={l.fobPh}
                         value={valorFob}
                         onChange={(e) => setValorFob(e.target.value)}
                         className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition"
@@ -451,7 +454,7 @@ _Enviado desde el formulario web de Trust Container._`;
                   {/* Volumen */}
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Volumen (CBM / m³) <span className="text-red-500">*</span>
+                      {l.volumeLabel} <span className="text-red-500">*</span>
                     </label>
                     <div className="relative">
                       <Box className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
@@ -460,7 +463,7 @@ _Enviado desde el formulario web de Trust Container._`;
                         min="0.1"
                         step="any"
                         required
-                        placeholder="Ej. 3.5"
+                        placeholder={l.volumePh}
                         value={volumen}
                         onChange={(e) => setVolumen(e.target.value)}
                         className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition"
@@ -471,7 +474,7 @@ _Enviado desde el formulario web de Trust Container._`;
                   {/* Peso */}
                   <div className="sm:col-span-2">
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Peso Estimado <span className="text-red-500">*</span>
+                      {l.weightLabel} <span className="text-red-500">*</span>
                     </label>
                     <div className="grid grid-cols-3 gap-2">
                       <div className="col-span-2 relative">
@@ -481,7 +484,7 @@ _Enviado desde el formulario web de Trust Container._`;
                           min="1"
                           step="any"
                           required
-                          placeholder="Ej. 850"
+                          placeholder={l.weightPh}
                           value={peso}
                           onChange={(e) => setPeso(e.target.value)}
                           className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition"
@@ -492,8 +495,8 @@ _Enviado desde el formulario web de Trust Container._`;
                         onChange={(e) => setUnidadPeso(e.target.value as "kg" | "ton")}
                         className="w-full px-2.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-xs font-medium text-slate-800 transition cursor-pointer"
                       >
-                        <option value="kg">Kilogramos (Kg)</option>
-                        <option value="ton">Toneladas (Ton)</option>
+                        <option value="kg">{l.kg}</option>
+                        <option value="ton">{l.ton}</option>
                       </select>
                     </div>
                   </div>
@@ -504,16 +507,16 @@ _Enviado desde el formulario web de Trust Container._`;
               <div>
                 <div className="flex items-center gap-2 text-sm font-bold text-[#252b42] uppercase tracking-wider mb-3">
                   <MapPin className="w-4 h-4 text-[#2091f9]" />
-                  <span>3. Origen y Destino</span>
+                  <span>{l.section3}</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Origen (Ciudad, Puerto o Almacén)
+                      {l.originLabel}
                     </label>
                     <input
                       type="text"
-                      placeholder="Ej. Miami, Shanghái, Colón, etc."
+                      placeholder={l.originPh}
                       value={origen}
                       onChange={(e) => setOrigen(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition"
@@ -522,11 +525,11 @@ _Enviado desde el formulario web de Trust Container._`;
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Destino {isDoor ? "(Dirección o Ciudad final)" : "(Puerto o Almacén)"}
+                      {isDoor ? l.destLabelDoor : l.destLabelLcl}
                     </label>
                     <input
                       type="text"
-                      placeholder={isDoor ? "Ej. Valencia, Caracas (Puerta a Puerta)" : "Ej. Puerto Cabello, La Guaira"}
+                      placeholder={isDoor ? l.destPhDoor : l.destPhLcl}
                       value={destino}
                       onChange={(e) => setDestino(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition"
@@ -535,11 +538,11 @@ _Enviado desde el formulario web de Trust Container._`;
 
                   <div className="sm:col-span-2">
                     <label className="block text-xs font-semibold text-slate-700 mb-1">
-                      Descripción de la Mercancía o Notas Especiales
+                      {l.notes}
                     </label>
                     <textarea
                       rows={2}
-                      placeholder="Ej. Tipo de productos, si requiere seguro especial, fecha estimada de despacho..."
+                      placeholder={l.notesPh}
                       value={notas}
                       onChange={(e) => setNotas(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#2091f9] text-sm text-slate-800 transition resize-none"
@@ -556,12 +559,12 @@ _Enviado desde el formulario web de Trust Container._`;
                 >
                   <Sparkles className="w-5 h-5 text-amber-300" />
                   <span>
-                    Solicitar Cotización de {isDoor ? "Door to Door" : "Carga Consolidada"}
+                    {l.submit(serviceName)}
                   </span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Button>
                 <p className="text-center text-xs text-slate-400 mt-2">
-                  🔒 Cotización rápida y confidencial con asesoría directa de Trust Container.
+                  {l.privacy}
                 </p>
               </div>
             </form>
